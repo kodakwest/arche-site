@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arche Logo Placeholder — Guard Direction -->
+<!-- AGY to replace with high-fidelity SVG -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 2 L3 7 L3 12 C3 17 7 21 12 22 C17 21 21 17 21 12 L21 7 Z" />
+  <path d="M12 8 L12 14" />
+  <circle cx="12" cy="17" r="1" fill="#7c3aed" />
+</svg>
