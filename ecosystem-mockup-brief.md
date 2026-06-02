@@ -10,7 +10,7 @@ Update the Arche marketing site into a product ecosystem hub. Add navigation to 
 - Visual identity: Dark theme, teal (#22d3ee) / violet (#818cf8) accents, Inter sans + JetBrains Mono
 
 ## Design System (Drift v2)
-Use existing CSS custom properties from the current `agentflow-site/index.html`:
+Use existing CSS custom properties from the current `arche-site/index.html`:
 - `--bg-deep: #0B0B12`, `--bg-base: #0c0d0f`, `--panel: #111215`, `--surface: #17181c`
 - `--ink: #f2f0e8`, `--ink-secondary: #a8a6a0`, `--ink-muted: #6b6a66`
 - `--accent-primary: #22d3ee` (teal), `--accent-tertiary: #818cf8` (violet)
