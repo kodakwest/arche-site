@@ -94,3 +94,16 @@ Brand SVGs are in `/home/tsrwest/workspace/arche-rebrand/assets/branding/`:
 - All links target="_blank" for external, same-tab for internal
 - SEO: meta descriptions, OG tags, structured data on every page
 - Blog posts: Google Preferred Sources button for credibility signal
+
+## Deployment Gate
+
+Every deploy MUST pass this sequence before merge:
+
+1. Code changes (Codex/Jules PR)
+2. Jules generates unit + E2E tests for the change surface
+3. All tests pass (`npm test && npm run test:e2e`)
+4. UAT dashboard (`docs/uat-brand-dashboard.html`) verified against the deploy target
+5. Brand compliance scan: zero stale AgentFlow references in code (historical breadcrumbs in docs are acceptable)
+6. Merge → deploy
+
+**Gate keeper:** Jules runs tests. TARS verifies UAT. No deploy without both green. Tests are not optional. UAT is not optional.
