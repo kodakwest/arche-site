@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentFlow — Ecosystem Roadmap (v2)</title>
+  <title>Arche — Ecosystem Roadmap (v2)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -103,17 +103,17 @@
 
 <header class="rm-header">
   <div style="display:flex;align-items:center;gap:0.5rem;">
-    <h1>AgentFlow <span class="tag">Roadmap v2</span></h1>
+    <h1>Arche <span class="tag">Roadmap v2</span></h1>
   </div>
   <div class="meta">corrected 2026-05-26</div>
 </header>
 
 <section class="rm-hero">
-  <h2>Build agents from the ground up. Run where data lives.</h2>
+  <h2>Build secure agent workflows. Run where data lives.</h2>
   <div class="sub">
-    Architect Chat defines the template. Chat Deck refines and decomposes. 
-    The Library pushes to any agent harness. The engine tracks everything.
-    All data is prompts for sub-agents, based on one consistent template.
+    Architect Chat defines the template. Arche Library launches. 
+    Control Plane orchestrates packages. Workbench stress-tests and refines.
+    Arche Flows configures advanced multi-agent protocol rules and AGENTS.md.
   </div>
 </section>
 
@@ -126,85 +126,79 @@
 
 <!-- ═══ ECOSYSTEM MAP ═══ -->
 <section class="rm-section">
-  <h3>Ecosystem Map</h3>
+  <h3>Ecosystem Map (Arche Studio)</h3>
   <div class="eco-grid">
 
     <div class="eco-card primary">
-      <div class="name">🏗️ Architect Chat <span class="badge priority">build first</span></div>
+      <div class="name">🏗️ Architect Chat <span class="badge priority">hero screen</span></div>
       <div class="desc">
-        <strong>Primary entry point.</strong> Onboard users, generate the one consistent agent template. 
-        Produces data sets, skills, config, and agent criteria. Spawns AGENTS.md subagent 
-        (CF Worker alpha) that commits to git. Everything flows from here.
+        <strong>Default Landing.</strong> Onboard users, generate the one consistent agent template. 
+        Provides single-conversation UI for design generation. Output designs and JSON orchestration configurations.
       </div>
-      <div class="stack">HTML/JS · template engine · CF Worker subagent</div>
+      <div class="stack">HTML/JS · Single Chat UI · template engine</div>
     </div>
 
     <div class="eco-card refine">
-      <div class="name">🧩 Chat Deck <span class="badge upcoming">re-purposed</span></div>
+      <div class="name">🚀 Arche Library <span class="badge upcoming">the launchpad</span></div>
       <div class="desc">
-        Agent refinement and decomposition. Takes the template from Architect Chat and 
-        refines it through dual-model adversarial conversation. Breaks problems into 
-        sub-tasks, generates orchestration loops, produces finalized agent criteria.
+        Shows saved/exported agent designs. Card UI with prominent **deploy/launch action buttons** 
+        pointing to target harnesses (Codex CLI, agy CLI, Claude/Jules, GitHub Copilot, Azure DevOps).
       </div>
-      <div class="stack">Single HTML · JS · dual-model · localStorage</div>
+      <div class="stack">HTML/JS · harness adapters · LocalStorage</div>
     </div>
 
     <div class="eco-card gateway">
-      <div class="name">📚 Library <span class="badge upcoming">new</span></div>
+      <div class="name">🖥️ Control Plane <span class="badge upcoming">deploy orchestrator</span></div>
       <div class="desc">
-        Browse and deploy gateway. All generated agent definitions, criteria, and templates 
-        in one place. Push to any harness: Codex CLI, agy CLI, Claude, GitHub Copilot, 
-        Azure Copilot Studio, or the engine. Injects criteria directly into each target.
+        Manages deploy files, packages, and configurations. Controls the exact assets pushed to each harness, 
+        tying Library launches to structured files.
       </div>
-      <div class="stack">HTML/JS · CF Pages · harness API integrations</div>
+      <div class="stack">HTML/JS · File Manager · package bundlers</div>
+    </div>
+
+    <div class="eco-card refine">
+      <div class="name">📊 Workbench <span class="badge upcoming">adversarial tester</span></div>
+      <div class="desc">
+        Prompt stress testing, adversarial feedback, and model iteration. Dual-model conversation UI 
+        (Model A ↔ Model B, teal vs violet) with turn counters, latency tracking, and pause/resume controls.
+      </div>
+      <div class="stack">HTML/JS · Dual-Model chat · Token telemetry</div>
     </div>
 
     <div class="eco-card primary">
-      <div class="name">⚙️ Engine :8377 <span class="badge live">live</span></div>
+      <div class="name">⚙️ Arche Flows <span class="badge priority">advanced orchestration</span></div>
       <div class="desc">
-        Data bus and analysis. Ingests agent definitions, session data, and execution 
-        results from every source. Runs analysis pipeline (quality, hygiene, cost, loops). 
-        Serves HTTP API for consumers. SQLite source of truth.
+        Advanced multi-agent orchestration configuration. Generates AGENTS.md files, skill trees, 
+        tool assignments, and SOP protocol definitions based on ai-engineer-coach patterns.
       </div>
-      <div class="stack">Python 3.11 · SQLite · stdlib http.server</div>
-    </div>
-
-    <div class="eco-card harness">
-      <div class="name">🎯 Agent Harnesses <span class="badge upcoming">integrations</span></div>
-      <div class="desc">
-        Target execution environments. Codex CLI (GPT-5.5), agy CLI (Gemini 3.5 Flash), 
-        Claude/Jules (Gemini 3.1 Pro), GitHub Copilot, Azure Copilot Studio. 
-        Each receives injected agent criteria from the Library.
-      </div>
-      <div class="stack">Codex · agy · Claude · GHCP · Azure CS</div>
+      <div class="stack">HTML/JS · AGENTS.md parser · SOP definer</div>
     </div>
 
     <div class="eco-card infra">
-      <div class="name">🌐 agentflow.site <span class="badge live">live</span></div>
+      <div class="name">🌐 archework.ai <span class="badge live">live</span></div>
       <div class="desc">
         Marketing site + ecosystem nav hub. Hosts product pages, docs, roadmap, 
-        and diagrams. Navigation to all ecosystem surfaces. CF Pages.
+        and diagrams. Navigation to all Arche Studio surfaces. CF Pages.
       </div>
       <div class="stack">HTML · CSS · JS · Cloudflare Pages</div>
     </div>
 
   </div>
 </section>
-
 <!-- ═══ DATA FLOW ═══ -->
 <section class="rm-section">
   <h3>Product Flow</h3>
   <div class="flow-row">
     <span class="node primary">🏗️ Architect Chat</span>
-    <span class="arrow">generates template</span>
-    <span class="node store">📋 Agent Template</span>
-    <span class="arrow">refines</span>
-    <span class="node refine">🧩 Chat Deck</span>
-    <span class="arrow">produces</span>
-    <span class="node store">✅ Agent Criteria</span>
-    <span class="arrow">browse</span>
-    <span class="node gateway">📚 Library</span>
-    <span class="arrow">inject</span>
+    <span class="arrow">generates design</span>
+    <span class="node store">📋 Agent Design</span>
+    <span class="arrow">deploy via</span>
+    <span class="node gateway">🚀 Arche Library</span>
+    <span class="arrow">manages packages in</span>
+    <span class="node refine">🖥️ Control Plane</span>
+    <span class="arrow">stress-test in</span>
+    <span class="node refine">📊 Workbench</span>
+    <span class="arrow">injects to</span>
     <span class="node harness">🎯 Codex / agy / Claude / GHCP / Azure</span>
     <span class="label">USER JOURNEY</span>
   </div>
@@ -230,76 +224,53 @@
 
 <!-- ═══ ROADMAP TIMELINE ═══ -->
 <section class="rm-section">
-  <h3>Build Sequence</h3>
+  <h3>Build Sequence (Arche Rebrand & V2 Screens)</h3>
   <div class="timeline">
 
     <div class="tl-item step-done">
       <div class="num">#0</div>
-      <h4>Engine HTTP API <span class="status-tag done">done</span></h4>
+      <h4>Arche Engine & Core API <span class="status-tag done">done</span></h4>
       <p>Stdlib HTTP server on <code>:8377</code>. <code>POST /v1/ingest/session</code>, 
-      <code>GET /v1/health</code>, <code>GET /v1/metrics/summary</code>, <code>GET /v1/sessions</code>. 
-      Contract normalizer. Idempotent ingestion. 20/20 tests.</p>
-    </div>
-
-    <div class="tl-item step-done">
-      <div class="num">#0b</div>
-      <h4>Chat Deck → Engine Wiring <span class="status-tag done">done</span></h4>
-      <p>POST on session save, localStorage retry queue, 30s periodic retry. 
-      Fire-and-forget — no UI impact. Ready for re-purposing to agent refinement.</p>
+      <code>GET /v1/health</code>, <code>GET /v1/metrics/summary</code>. SQLite source of truth.</p>
     </div>
 
     <div class="tl-item step-current">
       <div class="num">#1</div>
-      <h4>Architect Chat <span class="status-tag current">top priority</span></h4>
-      <p><strong>Primary user interaction.</strong> Onboard users, generate the one consistent 
-      agent template. Produces data sets, skills, config, agent criteria. 
-      Spawns AGENTS.md subagent (CF Worker alpha) → git commit. 
-      This is where users start every workflow.</p>
+      <h4>Arche Studio Shell & Brand Overhaul <span class="status-tag current">top priority</span></h4>
+      <p><strong>Brand Overhaul.</strong> Rebrand AgentFlow → Arche. Rename site repositories,
+      deployments, and update design tokens. Integrate Arche logo marks (Gateway, Flowmark, Guard).</p>
     </div>
 
     <div class="tl-item step-next">
       <div class="num">#2</div>
-      <h4>AGENTS.md Subagent (Alpha Flow) <span class="status-tag next">next</span></h4>
-      <p>CF Worker (or injected sub-agent) that generates AGENTS.md from the Architect 
-      Chat template. Commits to git alongside config, skills, and agent data sets. 
-      The first automated output of the template pipeline.</p>
+      <h4>Architect Chat — Hero Screen <span class="status-tag next">next</span></h4>
+      <p>Landing page default. Implementation of single chat UI with design generation output, 
+      structured agent template definitions, and provider routing config.</p>
     </div>
 
     <div class="tl-item step-next">
       <div class="num">#3</div>
-      <h4>Chat Deck — Agent Refinement Mode <span class="status-tag next">next</span></h4>
-      <p>Re-purpose Chat Deck from dual-model chat to agent definition decomposition. 
-      Takes template from Architect Chat, refines criteria through adversarial 
-      conversation. Produces orchestration loops: plan → execute → review. 
-      Generates initial agent criteria for sub-agents.</p>
+      <h4>Arche Library & Launch Adapters <span class="status-tag next">next</span></h4>
+      <p>Saved agent card display with prompt launch triggers. Build adapters to pipe designs directly 
+      as context/prompts to Codex CLI, agy, Jules, and Copilot.</p>
     </div>
 
     <div class="tl-item step-future">
       <div class="num">#4</div>
-      <h4>Library Page <span class="status-tag hold">future</span></h4>
-      <p>Browse and deploy gateway. All generated agents, definitions, criteria. 
-      Push to any harness: Codex CLI, agy CLI, Claude, GitHub Copilot, 
-      Azure Copilot Studio, or the engine. Inject criteria as context.</p>
+      <h4>Control Plane & Workbench Integration <span class="status-tag hold">future</span></h4>
+      <p>Integrate package manager UI into Control Plane and adversarial dual-model prompt tester 
+      into Workbench (Model A ↔ Model B side-by-side stream with telemetry).</p>
     </div>
 
     <div class="tl-item step-future">
       <div class="num">#5</div>
-      <h4>Harness Integrations <span class="status-tag hold">future</span></h4>
-      <p>Per-harness push adapters. Codex gets system prompt injection. agy gets 
-      context packet. Azure CS gets API config export. Each harness receives 
-      the same agent criteria, adapted to its interface.</p>
-    </div>
-
-    <div class="tl-item step-future">
-      <div class="num">#6</div>
-      <h4>Sync Worker + Cloud <span class="status-tag hold">future</span></h4>
-      <p>Batched metric summaries from engine → CF Worker → D1. 
-      Cloud dashboard for team-wide trends. No raw session data leaves local.</p>
+      <h4>Arche Flows (AGENTS.md Orchestrator) <span class="status-tag hold">future</span></h4>
+      <p>Technical power-user screen. Define multi-agent workflows, compile to AGENTS.md, 
+      apply ai-engineer-coach SOP templates, and commit to Git automatically.</p>
     </div>
 
   </div>
 </section>
-
 <!-- ═══ DEPLOYMENT ═══ -->
 <section class="rm-section">
   <h3>Deployment Plan</h3>
@@ -311,9 +282,8 @@
       <tr><td><strong>Architect Chat</strong></td><td>Web app</td><td>CF Pages / local</td><td><code>wrangler pages deploy</code></td></tr>
       <tr><td><strong>Chat Deck</strong></td><td>Static HTML</td><td>file:// or relay</td><td>Open in browser</td></tr>
       <tr><td><strong>Library</strong></td><td>Web app</td><td>CF Pages</td><td><code>wrangler pages deploy</code></td></tr>
-      <tr><td><strong>Engine</strong></td><td>Local service</td><td>localhost:8377</td><td><code>python -m agentflow_engine</code></td></tr>
-      <tr><td><strong>AGENTS.md Worker</strong></td><td>CF Worker</td><td>CF Workers</td><td><code>wrangler deploy</code></td></tr>
-      <tr><td><strong>agentflow.site</strong></td><td>Static site</td><td>CF Pages</td><td>git push → auto-deploy</td></tr>
+      <tr><td><strong>Engine</strong></td><td>Local service</td><td>localhost:8377</td><td>      <code>python -m arche_engine</code></td></tr>
+      <tr><td><strong>Arche Site</strong></td><td>Static site</td><td>CF Pages</td><td>git push → auto-deploy</td></tr>
     </tbody>
   </table>
 </section>
@@ -398,7 +368,7 @@
 </section>
 
 <footer class="rm-footer">
-  AgentFlow &middot; Turn prompts into pipelines &middot; <a href="https://agentflow.dev" target="_blank">agentflow.dev</a>
+  Arche &middot; Build secure agent workflows &middot; <a href="https://archework.ai" target="_blank">archework.ai</a>
   &middot; <a href="diagrams/data-flow-journey.html">Data Flow Diagrams</a>
 </footer>
 

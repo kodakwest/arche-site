@@ -1,12 +1,12 @@
-# AgentFlow Ecosystem Shell — Design Brief
+# Arche Ecosystem Shell — Design Brief
 
 ## Objective
-Update agentflow.dev marketing site into a product ecosystem hub. Add navigation to all AgentFlow surfaces (Chat Deck, Workbench, Control Plane, Docs), design new Control Plane and Workbench pages using the existing Drift design system, and apply the new brand identity.
+Update the Arche marketing site into a product ecosystem hub. Add navigation to all Arche surfaces (Chat Deck, Workbench, Control Plane, Docs), design new Control Plane and Workbench pages using the existing Drift design system, and apply the new brand identity.
 
 ## Brand Identity
-- Name: **AgentFlow**
-- Tagline: *Turn Prompts Into Pipelines*
-- Domain: agentflow.dev (Cloudflare Pages)
+- Name: **Arche**
+- Tagline: *Build Secure Agent Workflows*
+- Domain: arche.agentarche.ai (Cloudflare Pages)
 - Visual identity: Dark theme, teal (#22d3ee) / violet (#818cf8) accents, Inter sans + JetBrains Mono
 
 ## Design System (Drift v2)
