@@ -5,8 +5,8 @@
 Arche is an AI agent orchestration platform. This repo is the **marketing site** — brand, roadmap, product pages, blog. Deployed to Cloudflare Pages at `agentarche.com` (Andrew's surface).
 
 **Sister repos:**
-- `kodakwest/arche-studio` (renamed from `kodakwest/agentflow`)
-- `kodakwest/arche-chat-deck` (renamed from `kodakwest/agentflow-ai-chat-deck`)
+- `kodakwest/arche-studio`
+- `kodakwest/arche-chat-deck`
 - `kodakwest/arche-site` ← YOU ARE HERE
 
 ## Visual Conventions
