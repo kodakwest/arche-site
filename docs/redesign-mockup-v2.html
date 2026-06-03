@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgentFlow Redesign v2</title>
+    <title>Arche Redesign v2</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +12,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg-base: #0e0f0d;
-            --bg-panel: #171713;
-            --border-subtle: #262621;
+            --bg-base: #0c0d0f;
+            --bg-panel: #111215;
+            --border-subtle: rgba(255, 255, 255, 0.05);
             --text-ink: #f2f0e8;
-            --text-muted: #8c8c83;
-            --accent-teal: #56b6a7;
-            --accent-gold: #d7a928;
-            --accent-violet: #a78bfa; /* for model B */
+            --text-muted: #a8a6a0;
+            --accent-teal: #22d3ee;
+            --accent-gold: #fbbf24;
+            --accent-violet: #818cf8; /* for model B */
             --font-ui: 'Inter', sans-serif;
             --font-code: 'JetBrains Mono', monospace;
             --sidebar-width: 260px;
@@ -84,12 +84,12 @@
             background: rgba(255,255,255,0.05);
         }
         button.primary {
-            background: rgba(86, 182, 167, 0.1);
+            background: rgba(34, 211, 238, 0.1);
             border-color: var(--accent-teal);
             color: var(--accent-teal);
         }
         button.primary:hover {
-            background: rgba(86, 182, 167, 0.2);
+            background: rgba(34, 211, 238, 0.2);
         }
         button.icon-btn {
             padding: 0.5rem;
@@ -150,7 +150,7 @@
         .nav-item.active {
             color: var(--accent-teal);
             border-right: 3px solid var(--accent-teal);
-            background: rgba(86, 182, 167, 0.05);
+            background: rgba(34, 211, 238, 0.05);
         }
 
         /* Main Content */
@@ -211,9 +211,9 @@
             gap: 1rem;
         }
         .message.ai .avatar {
-            background: rgba(86, 182, 167, 0.1);
+            background: rgba(34, 211, 238, 0.1);
             color: var(--accent-teal);
-            border: 1px solid rgba(86, 182, 167, 0.2);
+            border: 1px solid rgba(34, 211, 238, 0.2);
         }
         .message.user .avatar {
             background: rgba(255, 255, 255, 0.05);
@@ -317,11 +317,11 @@
             border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 500;
-            background: rgba(86, 182, 167, 0.1);
+            background: rgba(34, 211, 238, 0.1);
             color: var(--accent-teal);
         }
         .status-badge.pending {
-            background: rgba(215, 169, 40, 0.1);
+            background: rgba(251, 191, 36, 0.1);
             color: var(--accent-gold);
         }
 
@@ -375,7 +375,7 @@
         .metric-value { font-family: var(--font-code); font-size: 1.125rem; }
         .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
 
-        /* 5. AgentFlow Screen */
+        /* 5. Arche Screen */
         .orchestration-layout {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -440,8 +440,18 @@
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo-area">
-                <i data-lucide="network" class="text-teal"></i>
-                <span>AgentFlow</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" style="width: 24px; height: 24px; flex-shrink: 0;">
+                    <!-- Gateway arch — two pillars with curved top, forming an 'A' shape -->
+                    <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                    <!-- Horizontal routed beam — work flows through the gateway -->
+                    <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+                    <!-- Origin point — first principle, where execution begins -->
+                    <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
+                    <!-- Active execution node — current flow position -->
+                    <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
+                    <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
+                </svg>
+                <span>Arche</span>
             </div>
         </div>
         <div class="nav-links">
@@ -461,9 +471,9 @@
                 <i data-lucide="flask-conical"></i>
                 <span>Workbench</span>
             </div>
-            <div class="nav-item" data-target="screen-agentflow">
+            <div class="nav-item" data-target="screen-arche">
                 <i data-lucide="workflow"></i>
-                <span>AgentFlow Screen</span>
+                <span>Arche Screen</span>
             </div>
         </div>
     </nav>
@@ -731,14 +741,14 @@
             </div>
         </div>
 
-        <!-- Screen 5: AgentFlow Screen -->
-        <div id="screen-agentflow" class="screen">
+        <!-- Screen 5: Arche Screen -->
+        <div id="screen-arche" class="screen">
             <header class="top-bar">
                 <div class="flex items-center gap-4">
                     <button class="menu-toggle icon-btn menuToggle">
                         <i data-lucide="menu"></i>
                     </button>
-                    <h1 class="font-semibold">AgentFlow Configuration</h1>
+                    <h1 class="font-semibold">Arche Configuration</h1>
                     <span class="text-muted text-sm border rounded px-2 py-1">Advanced Orchestration</span>
                 </div>
                 <button class="primary"><i data-lucide="file-code" class="w-4 h-4"></i> Generate AGENTS.md</button>
@@ -788,7 +798,7 @@
                             </div>
                             <button class="icon-btn"><i data-lucide="copy" class="w-4 h-4"></i></button>
                         </div>
-                        <div class="config-code"># AGENTS.md — AgentFlow Configuration
+                        <div class="config-code"># AGENTS.md — Arche Configuration
 
 ## Project Context
 Auto-generated orchestration configuration.

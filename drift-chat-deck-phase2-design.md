@@ -1,7 +1,7 @@
 # Drift AI Chat Deck — Phase 2 Design Document
 
 ## Overview
-This document outlines the UX flows, UI layouts, component structures, and technical edge cases for the Phase 2 feature set of the AgentFlow AI Chat Deck. The features build upon the existing single-file, zero-dependency, dark-themed Drift aesthetic.
+This document outlines the UX flows, UI layouts, component structures, and technical edge cases for the Phase 2 feature set of the Arche Chat Deck. The features build upon the existing single-file, zero-dependency, dark-themed Drift aesthetic.
 
 ---
 
@@ -139,5 +139,5 @@ This document outlines the UX flows, UI layouts, component structures, and techn
 ### Gotchas & Edge Cases
 - **The `file://` Protocol Problem**: The existing app is designed to run locally from a `file://` URI. Standard OAuth 2.0 flows (Authorization Code) strictly forbid `file://` redirect URIs. 
     - *Workaround A*: Utilize the optional `relay-server.js` to handle the OAuth callback, which then passes the token back to the frontend.
-    - *Workaround B*: Use a centralized hosted callback page (e.g., on AgentFlow's domain) that captures the token and provides a deep-link or a manual "Copy your token" button for the user to paste back into the local `file://` app.
+    - *Workaround B*: Use a centralized hosted callback page (e.g., on Arche's domain) that captures the token and provides a deep-link or a manual "Copy your token" button for the user to paste back into the local `file://` app.
 - **API Compatability**: Once authenticated, the bearer token can be passed to `https://api.openai.com/v1/chat/completions` exactly like the existing OpenRouter/LM Studio logic.

@@ -1,11 +1,11 @@
 <!--
 ---
-title: "AgentFlow Marketing Site"
+title: "Arche Marketing Site"
 artifact_type: Knowledge_Base
 source_context: Drift redesign marketing site build
 domain: Cloud/Infrastructure
-systems: AgentFlow
-primary_entities: AgentFlow; AI Agent Orchestration; Drift Design System
+systems: Arche
+primary_entities: Arche; AI Agent Orchestration; Drift Design System
 last_updated: 2026-05-25
 status: active
 ---
@@ -17,14 +17,15 @@ status: active
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Tags -->
-  <title>AgentFlow | Turn Prompts Into Pipelines</title>
+  <title>Arche | Turn Prompts Into Pipelines</title>
   <meta name="description" content="The open-source orchestration layer for LLM workflows. Build secure, local-first AI agents from the ground up and run where your data lives.">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="AgentFlow | Turn Prompts Into Pipelines">
+  <meta property="og:title" content="Arche | Turn Prompts Into Pipelines">
   <meta property="og:description" content="Build secure, local-first AI agents from the ground up and run where your data lives.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://agentflow.dev">
+  <meta property="og:url" content="https://agentarche.com">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M2.5 14 L2.5 7 C2.5 2 13.5 2 13.5 7 L13.5 14' stroke='%2322d3ee' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M2.5 10 L13.5 10' stroke='%2322d3ee' stroke-width='1.2' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='2.5' r='1' fill='%2322d3ee'/%3E%3Ccircle cx='8' cy='10' r='2' fill='none' stroke='%2322d3ee' stroke-width='0.6' opacity='0.3'/%3E%3Ccircle cx='8' cy='10' r='1' fill='%2322d3ee'/%3E%3C/svg%3E">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +65,14 @@ status: active
       --accent-tertiary: #818cf8;
       --accent-tertiary-rgb: 129, 140, 248;
       --accent-warning: #f472b6;
+      --accent-studio: #22d3ee;
+      --accent-flows: #34d399;
+      --accent-workers: #818cf8;
+      --accent-guard: #f472b6;
+      --accent-registry: #fbbf24;
+      --accent-runtime: #fb923c;
+      --accent-audit: #fb7185;
+      --accent-engine: #10b981;
 
       /* Glassmorphism */
       --glass-bg: rgba(17, 18, 21, 0.75);
@@ -108,6 +117,14 @@ status: active
       --accent-secondary-rgb: 16, 185, 129;
       --accent-tertiary: #8b5cf6;
       --accent-tertiary-rgb: 139, 92, 246;
+      --accent-studio: #22d3ee;
+      --accent-flows: #34d399;
+      --accent-workers: #818cf8;
+      --accent-guard: #f472b6;
+      --accent-registry: #fbbf24;
+      --accent-runtime: #fb923c;
+      --accent-audit: #fb7185;
+      --accent-engine: #10b981;
 
       --glass-bg: rgba(255, 255, 255, 0.8);
       --glass-border: rgba(14, 165, 233, 0.2);
@@ -701,7 +718,7 @@ status: active
       50% { opacity: 0; }
     }
 
-    /* ── Problem Section / Why AgentFlow (Step 4) ── */
+    /* ── Problem Section / Why Arche (Step 4) ── */
     .section-header {
       text-align: center;
       margin-bottom: 4rem;
@@ -1294,7 +1311,13 @@ status: active
     <!-- NAVIGATION CONTAINER (Step 2) -->
     <header>
       <a href="#" class="nav-logo">
-        agent<span>flow</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
+          <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
+          <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
+        </svg>
       </a>
       
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">
@@ -1365,13 +1388,13 @@ status: active
         </a>
       </section>
       
-      <!-- WHY AGENTFLOW / PROBLEM SECTION (Step 4) -->
+      <!-- WHY ARCHE / PROBLEM SECTION (Step 4) -->
       <section id="why" class="reveal-on-scroll" data-keywords="why, security, vendor lock, infrastructure, stack, local, data, open source">
         <div class="section-header">
           <span class="section-tag">System Properties</span>
-          <h2 class="section-title">Why AgentFlow?</h2>
+          <h2 class="section-title">Why Arche?</h2>
           <p class="section-subtitle">
-            Most agent platforms lock you in and send your data to external servers. AgentFlow is built for complete control, absolute security, and zero vendor lock-in.
+            Most agent platforms lock you in and send your data to external servers. Arche is built for complete control, absolute security, and zero vendor lock-in.
           </p>
         </div>
         
@@ -1380,10 +1403,13 @@ status: active
           <div class="drift-card drift-card--glass why-card">
             <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-01]</div>
             <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                <circle cx="12" cy="11" r="2"></circle>
-                <line x1="12" y1="13" x2="12" y2="17"></line>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#f472b6" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M3.5 14 L20.5 14" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M12 3.5 L12 14" stroke="#f472b6" stroke-width="0.75" opacity="0.3"/>
+                <circle cx="12" cy="3.5" r="1.5" fill="#f472b6"/>
+                <circle cx="12" cy="14" r="1.5" fill="#f472b6"/>
+                <path d="M8 18 L12 22 L16 18" stroke="#f472b6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
               </svg>
             </div>
             <h3 class="why-title">Security-First</h3>
@@ -1396,10 +1422,12 @@ status: active
           <div class="drift-card drift-card--glass why-card">
             <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-02]</div>
             <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-                <line x1="10" y1="21" x2="14" y2="3"></line>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M3.5 14 L20.5 14" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="12" cy="3.5" r="1.5" fill="#34d399"/>
+                <circle cx="12" cy="14" r="1.5" fill="#34d399"/>
+                <path d="M12 14 L8 20 M12 14 L16 20" stroke="#34d399" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
               </svg>
             </div>
             <h3 class="why-title">No Vendor Lock</h3>
@@ -1412,13 +1440,13 @@ status: active
           <div class="drift-card drift-card--glass why-card">
             <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-03]</div>
             <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                <line x1="2" y1="10" x2="2" y2="14"></line>
-                <line x1="22" y1="10" x2="22" y2="14"></line>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fb923c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M3.5 14 L20.5 14" stroke="#fb923c" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="12" cy="3.5" r="1.5" fill="#fb923c"/>
+                <circle cx="12" cy="14" r="1.5" fill="#fb923c"/>
+                <path d="M12 14 L9 18 M12 14 L15 18" stroke="#fb923c" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+                <polygon points="12,19 11,17 13,17" fill="#fb923c" opacity="0.4"/>
               </svg>
             </div>
             <h3 class="why-title">Your Stack</h3>
@@ -1487,7 +1515,7 @@ status: active
                   <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="#34d399" stroke-width="1.5"/>
                 </marker>
                 <marker id="arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+                  <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="#818cf8" stroke-width="1.5"/>
                 </marker>
               </defs>
               
@@ -1505,8 +1533,8 @@ status: active
               <path d="M 370 85 C 370 65, 410 65, 450 65" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-green)"/>
               
               <!-- Daemon to Vector DB -->
-              <path d="M 370 115 C 370 135, 410 135, 450 135" fill="none" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-violet)"/>
-              <path d="M 450 135 C 410 135, 370 135, 370 115" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+              <path d="M 370 115 C 370 135, 410 135, 450 135" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrow-violet)"/>
+              <path d="M 450 135 C 410 135, 370 135, 370 115" fill="none" stroke="#818cf8" stroke-width="1.5"/>
               
               <!-- Router to External APIs -->
               <path d="M 570 65 C 610 65, 620 100, 680 100" fill="none" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow)"/>
@@ -1534,11 +1562,11 @@ status: active
                 <text x="60" y="38" fill="#34d399" font-family="var(--font-mono)" font-size="8" text-anchor="middle">MCP support</text>
               </g>
               
-              <!-- Local Vector DB (Database: rgba(76, 29, 149, 0.4), stroke #a78bfa) -->
+              <!-- Local Vector DB (Database: rgba(76, 29, 149, 0.4), stroke #818cf8) -->
               <g class="arch-node" transform="translate(450, 110)">
-                <rect width="120" height="50" rx="4" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                <rect width="120" height="50" rx="4" fill="rgba(76, 29, 149, 0.4)" stroke="#818cf8" stroke-width="1.5"/>
                 <text x="60" y="24" fill="var(--ink)" font-family="var(--font-sans)" font-size="11" font-weight="600" text-anchor="middle">Vector Cache</text>
-                <text x="60" y="38" fill="#a78bfa" font-family="var(--font-mono)" font-size="8" text-anchor="middle">sqlite / local-first</text>
+                <text x="60" y="38" fill="#818cf8" font-family="var(--font-mono)" font-size="8" text-anchor="middle">sqlite / local-first</text>
               </g>
               
               <!-- External API (External: rgba(30, 41, 59, 0.5), stroke #94a3b8) -->
@@ -1559,7 +1587,7 @@ status: active
                 <text x="110" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">Backend</text>
                 
                 <!-- Database -->
-                <circle cx="190" cy="5" r="4" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1"/>
+                <circle cx="190" cy="5" r="4" fill="rgba(76, 29, 149, 0.4)" stroke="#818cf8" stroke-width="1"/>
                 <text x="200" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">Database</text>
                 
                 <!-- External -->
@@ -1577,7 +1605,7 @@ status: active
           <span class="section-tag">Feature Matrix</span>
           <h2 class="section-title">Core Capabilities</h2>
           <p class="section-subtitle">
-            AgentFlow comes pre-loaded with powerful tools, memory modules, and multi-agent routing engines.
+            Arche comes pre-loaded with powerful tools, memory modules, and multi-agent routing engines.
           </p>
         </div>
         
@@ -1586,11 +1614,12 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="16" y="16" width="6" height="6" rx="1"></rect>
-                  <rect x="2" y="16" width="6" height="6" rx="1"></rect>
-                  <rect x="9" y="2" width="6" height="6" rx="1"></rect>
-                  <path d="M12 8v8M5 16l7-8M19 16l-7-8"></path>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#10b981"/>
+                  <circle cx="12" cy="14" r="2.5" stroke="#10b981" stroke-width="0.75" fill="none" opacity="0.3"/>
+                  <circle cx="12" cy="14" r="1.2" fill="#10b981"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-01]</span>
@@ -1610,9 +1639,13 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#818cf8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#818cf8"/>
+                  <circle cx="8" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#818cf8"/>
+                  <circle cx="16" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-02]</span>
@@ -1632,8 +1665,13 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 17 L20.5 17" stroke="#fbbf24" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#fbbf24"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#fbbf24"/>
+                  <rect x="9" y="18" width="6" height="4" rx="1" stroke="#fbbf24" stroke-width="0.75" fill="none" opacity="0.5"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-03]</span>
@@ -1652,13 +1690,12 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="4"></rect>
-                  <circle cx="12" cy="12" r="3"></circle>
-                  <line x1="12" y1="2" x2="12" y2="9"></line>
-                  <line x1="12" y1="15" x2="12" y2="22"></line>
-                  <line x1="2" y1="12" x2="9" y2="12"></line>
-                  <line x1="15" y1="12" x2="22" y2="12"></line>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#34d399"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#34d399"/>
+                  <path d="M12 14 L8 20 M12 14 L16 20" stroke="#34d399" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-04]</span>
@@ -1677,8 +1714,11 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-05]</span>
@@ -1697,9 +1737,13 @@ status: active
           <div class="drift-card drift-card--glass feature-card">
             <div class="feature-header">
               <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#f472b6" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <path d="M3.5 14 L20.5 14" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M12 3.5 L12 14" stroke="#f472b6" stroke-width="0.75" opacity="0.3"/>
+                  <circle cx="12" cy="3.5" r="1.5" fill="#f472b6"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#f472b6"/>
+                  <path d="M8 18 L12 22 L16 18" stroke="#f472b6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
                 </svg>
               </div>
               <span class="drift-hud-readout" style="opacity: 0.6;">[FE-06]</span>
@@ -1891,7 +1935,13 @@ status: active
       <div class="footer-grid">
         <div>
           <a href="#" class="nav-logo footer-brand">
-            agent<span>flow</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
+              <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
+              <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
+            </svg>
           </a>
           <p class="footer-desc">
             The open-source orchestration layer for LLM workflows. Build agents from the ground up. Run where data lives.
@@ -1901,7 +1951,7 @@ status: active
           <h4 class="footer-heading">Platform</h4>
           <ul class="footer-links">
             <li><a href="#hero">Product</a></li>
-            <li><a href="#why">Why AgentFlow</a></li>
+            <li><a href="#why">Why Arche</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#pricing">Pricing</a></li>
           </ul>
@@ -1909,19 +1959,19 @@ status: active
         <div>
           <h4 class="footer-heading">Community</h4>
           <ul class="footer-links">
-            <li><a href="https://github.com/agentflow-org/agentflow" target="_blank">GitHub Repository</a></li>
+            <li><a href="https://github.com/arche-org/arche" target="_blank">GitHub Repository</a></li>
             <li><a href="#consulting">Consulting Services</a></li>
-            <li><a href="mailto:consulting@agentflow.dev">consulting@agentflow.dev</a></li>
+            <li><a href="mailto:consulting@agentarche.com">consulting@agentarche.com</a></li>
           </ul>
         </div>
       </div>
       
       <div class="footer-bottom">
         <div class="footer-copyright">
-          &copy; 2026 AgentFlow. Open-source under MIT License.
+          &copy; 2026 Arche. Open-source under MIT License.
         </div>
         <div class="footer-social">
-          <a href="https://github.com/agentflow-org/agentflow" target="_blank" aria-label="GitHub">
+          <a href="https://github.com/arche-org/arche" target="_blank" aria-label="GitHub">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
@@ -2058,7 +2108,7 @@ status: active
 
     // ── Theme Toggle ──
     (function initTheme() {
-      const stored = localStorage.getItem('agentflow-theme');
+      const stored = localStorage.getItem('arche-theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const theme = stored || (prefersDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', theme === 'dark' ? '' : 'light');
@@ -2070,7 +2120,7 @@ status: active
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         const newTheme = isLight ? '' : 'light';
         document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('agentflow-theme', newTheme || 'dark');
+        localStorage.setItem('arche-theme', newTheme || 'dark');
         const icon = document.getElementById('themeIcon');
         if (icon) {
           icon.innerHTML = isLight
@@ -2110,12 +2160,12 @@ status: active
 </html>
 <!--
 ## Graph Seed: Entity Relationships
-agentflow -> is_redesigned_with -> drift_design_system
-agentflow -> provides -> ai_agent_orchestration
-marketing_site -> represents -> agentflow
+arche -> is_redesigned_with -> drift_design_system
+arche -> provides -> ai_agent_orchestration
+marketing_site -> represents -> arche
 
 ## Retrieval Keywords
-agentflow, drift, marketing, pipelines, workflows, orchestration, open-source, pricing, consulting
+arche, drift, marketing, pipelines, workflows, orchestration, open-source, pricing, consulting
 
 ## Boundary Notes
 This is a static marketing website mockup and does not contain active backend orchestration software.

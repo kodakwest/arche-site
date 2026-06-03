@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arche — Brand UAT Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-deep: #08080a; --bg-base: #0c0d0f; --panel: #111215; --surface: #17181c;
+    --ink: #f2f0e8; --ink-secondary: #a8a6a0; --ink-muted: #807e7a;
+    --border: rgba(255,255,255,0.06);
+    --pass: #10b981; --fail: #f472b6; --warn: #fbbf24;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  body { background: var(--bg-deep); color: var(--ink); padding: 2rem; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .sub { color: var(--ink-secondary); font-size: 0.9rem; margin-bottom: 2rem; }
+  h2 { font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--ink-secondary); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+
+  .stats-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .stat-card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; min-width: 140px; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; }
+  .stat-card .label { font-size: 0.75rem; color: var(--ink-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+  .check { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .check .icon { font-size: 1.25rem; width: 28px; text-align: center; }
+  .check .label { font-size: 0.85rem; flex: 1; }
+  .check .status { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .status-pass { background: rgba(16,185,129,0.15); color: var(--pass); }
+  .status-fail { background: rgba(244,114,182,0.15); color: var(--fail); }
+  .status-warn { background: rgba(251,191,36,0.15); color: var(--warn); }
+  .status-skip { background: rgba(255,255,255,0.05); color: var(--ink-muted); }
+
+  .logo-preview { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin: 1rem 0; min-height: 80px; }
+  .logo-preview svg { height: 40px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 1rem 0; }
+  th { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); color: var(--ink-secondary); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
+  td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
+  td.yes { color: var(--pass); } td.no { color: var(--fail); } td.partial { color: var(--warn); }
+
+  .uat-section { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+  .uat-section h3 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+  .uat-step { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .uat-step:last-child { border: none; }
+  .uat-step .cb { width: 18px; height: 18px; border: 2px solid var(--ink-muted); border-radius: 3px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+  .uat-step .cb.checked { background: var(--pass); border-color: var(--pass); position: relative; }
+  .uat-step .cb.checked::after { content: "✓"; color: #000; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .uat-step .desc { flex: 1; font-size: 0.85rem; }
+  .uat-step .expected { color: var(--ink-muted); font-size: 0.75rem; }
+</style>
+</head>
+<body>
+
+<h1>🔍 Arche — Brand UAT Dashboard</h1>
+<p class="sub">Open this file from each repo root to verify rebrand completeness. All checks run client-side.</p>
+
+<div class="stats-row" id="stats">
+  <div class="stat-card"><div class="num" id="total-checks">0</div><div class="label">Checks</div></div>
+  <div class="stat-card"><div class="num" id="pass-count" style="color:var(--pass)">0</div><div class="label">Passed</div></div>
+  <div class="stat-card"><div class="num" id="fail-count" style="color:var(--fail)">0</div><div class="label">Failed</div></div>
+  <div class="stat-card"><div class="num" id="warn-count" style="color:var(--warn)">0</div><div class="label">Warnings</div></div>
+</div>
+
+<h2>🏷️ Brand Identity Verification</h2>
+<div class="check-grid" id="brand-checks"></div>
+
+<h2>🖼️ Logo Rendering</h2>
+<div id="logo-previews"></div>
+
+<h2>📋 Manual UAT Checklist</h2>
+<p style="color:var(--ink-secondary);font-size:0.85rem;margin-bottom:1rem;">Click each checkbox to mark complete. State persists in localStorage.</p>
+<div id="uat-checklist"></div>
+
+<script>
+// ── Brand Checks ──────────────────────────────────────────────
+const BRAND_CHECKS = [
+  { id: 'title-agentflow', label: 'No "AgentFlow" in page title', check: () => !document.title.includes('AgentFlow') },
+  { id: 'brand-tagline', label: 'Tagline uses "Build Secure Agent Workflows"', check: () => document.body.innerText.includes('Build Secure Agent Workflows') || document.body.innerText.includes('Build Secure Agent Workflows') },
+  { id: 'logo-arche', label: 'Visual logo says "ARCHE"', check: () => document.body.innerText.includes('ARCHE') || [...document.querySelectorAll('*')].some(e => e.tagName === 'text' && e.textContent.trim() === 'ARCHE') },
+  { id: 'no-agentflow-text', label: 'No visible "AgentFlow" text in body', check: () => !document.body.innerText.includes('AgentFlow') },
+  { id: 'nav-arche', label: 'Navigation references Arche/Orchestrator', check: () => document.body.innerText.includes('Orchestrator') || document.body.innerText.includes('Arche') },
+  { id: 'tagline-match', label: 'Tagline matches brand spec', check: () => document.body.innerText.includes('Build Secure Agent Workflows') },
+];
+
+// ── Run Checks ────────────────────────────────────────────────
+let passCount = 0, failCount = 0, warnCount = 0;
+
+BRAND_CHECKS.forEach(c => {
+  try {
+    const passed = c.check();
+    if (passed) passCount++; else failCount++;
+    const div = document.createElement('div');
+    div.className = 'check';
+    div.innerHTML = `<span class="icon">${passed ? '✅' : '❌'}</span>
+      <span class="label">${c.label}</span>
+      <span class="status ${passed ? 'status-pass' : 'status-fail'}">${passed ? 'PASS' : 'FAIL'}</span>`;
+    document.getElementById('brand-checks').appendChild(div);
+  } catch(e) {
+    warnCount++;
+  }
+});
+
+document.getElementById('total-checks').textContent = BRAND_CHECKS.length;
+document.getElementById('pass-count').textContent = passCount;
+document.getElementById('fail-count').textContent = failCount;
+document.getElementById('warn-count').textContent = warnCount;
+
+// ── Logo SVG Loading ──────────────────────────────────────────
+const LOGOS = [
+  { name: 'Master Icon', file: 'arche-icon.svg' },
+  { name: 'Horizontal Lockup', file: 'arche-logo-horizontal.svg' },
+  { name: 'Favicon', file: 'arche-favicon.svg' },
+  { name: 'Monochrome', file: 'arche-icon-monochrome.svg' },
+  { name: 'White Variant', file: 'arche-icon-white.svg' },
+];
+
+async function loadLogos() {
+  const previews = document.getElementById('logo-previews');
+  
+  for (const logo of LOGOS) {
+    const div = document.createElement('div');
+    div.className = 'logo-preview';
+    
+    const label = document.createElement('div');
+    label.style.cssText = 'min-width:120px;font-size:0.85rem;font-weight:500;';
+    label.textContent = logo.name;
+    div.appendChild(label);
+    
+    const svgWrap = document.createElement('div');
+    svgWrap.style.cssText = 'flex:1;display:flex;align-items:center;gap:1rem;';
+    
+    try {
+      const resp = await fetch(logo.file);
+      if (resp.ok) {
+        const svgText = await resp.text();
+        svgWrap.innerHTML = svgText;
+        const status = document.createElement('span');
+        status.className = 'status status-pass';
+        status.textContent = 'LOADED';
+        svgWrap.appendChild(status);
+      } else {
+        svgWrap.innerHTML = `<span class="status status-fail">NOT FOUND (${resp.status})</span>`;
+      }
+    } catch(e) {
+      svgWrap.innerHTML = `<span class="status status-fail">FETCH ERROR</span>`;
+    }
+    
+    div.appendChild(svgWrap);
+    previews.appendChild(div);
+  }
+}
+loadLogos();
+
+// ── UAT Checklist (persisted) ─────────────────────────────────
+const UAT_STEPS = [
+  { section: 'Brand Surface', steps: [
+    'Open Arche Studio in browser — title bar reads "Arche"',
+    'Sidebar logo shows Gateway icon + "ARCHE" wordmark',
+    'Sidebar tagline reads "Arche | Build Secure Agent Workflows"',
+    'Nav item "AgentFlow" is gone — replaced by "Orchestrator"',
+    'All 5 nav items render: Architect Chat, Library, Control Plane, Workbench, Orchestrator',
+  ]},
+  { section: 'Chat Deck', steps: [
+    'Open drift_chat_suite.html — title reads "Drift AI Chat Suite"',
+    'README.md header reads "Arche Chat Deck"',
+    'Architecture URLs reference arche.agentarche.ai (not agentflow.com)',
+  ]},
+  { section: 'Logos & Assets', steps: [
+    'Master Gateway icon renders at 24×24 without distortion',
+    'Horizontal lockup reads "ARCHE" with tagline',
+    'Favicon is the Gateway mark at 16px',
+    'Product badges exist for all 8 products (Studio, Flows, Workers, Guard, Registry, Runtime, Audit, Engine)',
+    'Monochrome and white icon variants exist',
+  ]},
+  { section: 'Code Cleanliness', steps: [
+    'grep -ri "AgentFlow" src/ returns 0 hits',
+    'grep -ri "agentflow" drift_chat_suite.html returns 0 hits',
+    'README.md does not reference agentflow.com',
+    'AGENTS.md breadcrumbs say "formerly" not current branding',
+  ]},
+];
+
+function renderUAT() {
+  const container = document.getElementById('uat-checklist');
+  const storageKey = 'arche-uat-state';
+  let state = {};
+  try { state = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch(e) {}
+
+  UAT_STEPS.forEach(section => {
+    const secDiv = document.createElement('div');
+    secDiv.className = 'uat-section';
+    const heading = document.createElement('h3');
+    heading.textContent = section.section;
+    secDiv.appendChild(heading);
+
+    section.steps.forEach((step, idx) => {
+      const key = section.section + '-' + idx;
+      const checked = state[key] || false;
+      
+      const stepDiv = document.createElement('div');
+      stepDiv.className = 'uat-step';
+      
+      const cb = document.createElement('div');
+      cb.className = 'cb' + (checked ? ' checked' : '');
+      cb.onclick = () => {
+        state[key] = !state[key];
+        localStorage.setItem(storageKey, JSON.stringify(state));
+        cb.classList.toggle('checked');
+      };
+      
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = step;
+      
+      stepDiv.appendChild(cb);
+      stepDiv.appendChild(desc);
+      secDiv.appendChild(stepDiv);
+    });
+
+    container.appendChild(secDiv);
+  });
+}
+renderUAT();
+</script>
+</body>
+</html>

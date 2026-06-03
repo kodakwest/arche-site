@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AgentFlow Control Plane | Turn Prompts Into Pipelines</title>
-  <meta name="description" content="Manage your AgentFlow local agent engines, databases, and session processing workflows from a single unified control plane.">
+  <title>Arche Control Plane | Turn Prompts Into Pipelines</title>
+  <meta name="description" content="Manage your Arche local agent engines, databases, and session processing workflows from a single unified control plane.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M2.5 14 L2.5 7 C2.5 2 13.5 2 13.5 7 L13.5 14' stroke='%2322d3ee' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M2.5 10 L13.5 10' stroke='%2322d3ee' stroke-width='1.2' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='2.5' r='1' fill='%2322d3ee'/%3E%3Ccircle cx='8' cy='10' r='2' fill='none' stroke='%2322d3ee' stroke-width='0.6' opacity='0.3'/%3E%3Ccircle cx='8' cy='10' r='1' fill='%2322d3ee'/%3E%3C/svg%3E">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,12 +69,14 @@
     <!-- ECOSYSTEM HEADER NAVIGATION -->
     <header>
       <a href="index.html" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
+        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
+          <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
+          <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
         </svg>
-        agent<span>flow</span>
+        arche
       </a>
       
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">
@@ -86,23 +89,23 @@
 
       <nav class="nav-menu" id="navMenu">
         <a href="index.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/><circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/><circle cx="12" cy="14" r="1.5" fill="#22d3ee"/></svg>
           Home
         </a>
         <a href="chat-deck-landing.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#818cf8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#818cf8"/><circle cx="8" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/><circle cx="12" cy="14" r="1.5" fill="#818cf8"/><circle cx="16" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/></svg>
           Chat Deck
         </a>
         <a href="workbench.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/><circle cx="12" cy="14" r="1.5" fill="#22d3ee"/></svg>
           Workbench
         </a>
         <a href="control-plane.html" class="active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#10b981"/><circle cx="12" cy="14" r="2.5" stroke="#10b981" stroke-width="0.75" fill="none" opacity="0.3"/><circle cx="12" cy="14" r="1.2" fill="#10b981"/></svg>
           Control Plane
         </a>
         <a href="#" onclick="alert('Mockup Documentation Link'); return false;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 17 L20.5 17" stroke="#fbbf24" stroke-width="1" stroke-linecap="round" opacity="0.4"/><path d="M3.5 14 L20.5 14" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#fbbf24"/><circle cx="12" cy="14" r="1.5" fill="#fbbf24"/><rect x="9" y="18" width="6" height="4" rx="1" stroke="#fbbf24" stroke-width="0.75" fill="none" opacity="0.5"/></svg>
           Docs
         </a>
         <a href="#" class="drift-btn drift-btn--primary drift-btn--sm nav-cta-mobile" style="display: none;">Launch CLI</a>
@@ -292,7 +295,7 @@
             <!-- Configuration Inputs -->
             <div class="config-row">
               <label class="drift-label" for="dbPathInput">Database Path</label>
-              <input type="text" id="dbPathInput" class="drift-input font-mono" value="/mnt/s/Projects/agentflow-site/data/sessions.db">
+              <input type="text" id="dbPathInput" class="drift-input font-mono" value="/mnt/s/Projects/arche-site/data/sessions.db">
             </div>
 
             <div class="config-row">
@@ -315,7 +318,7 @@
             <!-- Utilities -->
             <div style="display: flex; flex-direction: column; gap: 0.5rem;">
               <label class="drift-label">Data Utilities</label>
-              <button class="drift-btn drift-btn--secondary drift-btn--sm" onclick="alert('SQLite Database successfully exported to /mnt/s/Projects/agentflow-site/backup.db');">Export SQLite DB</button>
+              <button class="drift-btn drift-btn--secondary drift-btn--sm" onclick="alert('SQLite Database successfully exported to /mnt/s/Projects/arche-site/backup.db');">Export SQLite DB</button>
               <button class="drift-btn drift-btn--ghost drift-btn--sm text-accent" onclick="if(confirm('Are you sure you want to prune logs older than 30 days?')) alert('Pruned 1,024 archived entries.');">Prune Logs</button>
             </div>
           </div>
@@ -327,7 +330,7 @@
 
     <!-- FOOTER -->
     <footer style="margin-top: auto; padding: 2rem 0; border-top: 1px solid var(--border-panel); text-align: center; font-size: 0.75rem; color: var(--ink-muted);">
-      <div>&copy; 2026 AgentFlow Systems. Designed with Drift v2 Design System.</div>
+      <div>&copy; 2026 Arche Systems. Designed with Drift v2 Design System.</div>
     </footer>
 
   </div>
@@ -343,7 +346,7 @@
   <script>
     // ── Theme Toggle ──
     (function initTheme() {
-      const stored = localStorage.getItem('agentflow-theme');
+      const stored = localStorage.getItem('arche-theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const theme = stored || (prefersDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', theme === 'dark' ? '' : 'light');
@@ -355,7 +358,7 @@
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         const newTheme = isLight ? '' : 'light';
         document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('agentflow-theme', newTheme || 'dark');
+        localStorage.setItem('arche-theme', newTheme || 'dark');
         const icon = document.getElementById('themeIcon');
         if (icon) {
           icon.innerHTML = isLight

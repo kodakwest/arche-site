@@ -52,9 +52,11 @@ Brand SVGs are in `/home/tsrwest/workspace/arche-rebrand/assets/branding/`:
 | Domain | Role | Hosting |
 |--------|------|---------|
 | **agentarche.com** | Marketing site (YOU) | Cloudflare Pages |
-| **agentarche.ai** | Platform infra (DNS root) | Cloudflare DNS |
-| **arche.agentarche.ai** | Main platform (app) | Cloudflare DNS (CNAME) |
-| **archework.ai** | Sidecar apps | Cloudflare Pages |
+| **app.agentarche.com** | Arche Studio (SPA) | Cloudflare Pages |
+| **api.agentarche.com** | Engine/API Worker | Cloudflare Worker |
+| **www.agentarche.com** | Redirects → root | Cloudflare Pages |
+| **archework.ai** | Sidecar apps (parked) | Registrar only |
+| **arche.ai** | Brand capture (backordered) | Registrar only |
 
 ## Product Ecosystem (to feature on site)
 
@@ -95,16 +97,111 @@ Brand SVGs are in `/home/tsrwest/workspace/arche-rebrand/assets/branding/`:
 - SEO: meta descriptions, OG tags, structured data on every page
 - Blog posts: Google Preferred Sources button for credibility signal
 
-## Deployment Gate
+## Branching, Staging, and Deployment Gate
 
-Every deploy MUST pass this sequence before merge:
+**`main` is the production-ready branch.** Do not push unreviewed work directly to `main`.
 
-1. Code changes (Codex/Jules PR)
-2. **Prompt changes are code changes** — any change to worker prompts, agent instructions, orchestration prompts, or package-generation prompts must include: diff review, prompt behavior rationale, Jules test generation/update
-3. Jules generates unit + E2E tests for the change surface
-4. All tests pass (`npm test && npm run test:e2e`)
-5. UAT dashboard (`docs/uat-brand-dashboard.html`) verified against the deploy target
-6. Brand compliance scan: zero stale AgentFlow references in code (historical breadcrumbs in docs are acceptable)
-7. Merge → deploy
+### Branch Naming
+All changes must start on a named branch:
+
+- `feature/<scope>` — new product work
+- `fix/<scope>` — bug fixes
+- `chore/<scope>` — repo/process/brand work
+- `docs/<scope>` — documentation-only changes
+- `hotfix/<scope>` — urgent production fixes only
+
+### Branching Model
+A **branch** is a candidate lane. It becomes a **staging surface** only when deployed to a local preview, CI preview, or hosted preview environment. `main` is the deployable production line.
+
+| Layer | Purpose | Risk |
+|---|---|---|
+| `main` | Production-ready source | High |
+| `chore/*`, `feature/*`, `fix/*` | Work branches | Low |
+| PR preview / local preview | UAT/staging surface | Medium |
+| `staging` branch (optional) | Shared staging lane | Medium |
+
+Do not add a permanent `staging` branch unless a long-lived shared staging URL is required. It adds process weight and is not needed until preview environments prove insufficient.
+
+### Required Promotion Flow
+1. Create branch from current `main`  
+   `git checkout main && git pull && git checkout -b <type>/<scope>`
+2. Commit intended changes only — verify with `git status --short` and `git diff --stat`
+3. Push branch  
+   `git push -u origin <branch-name>`
+4. Open PR or review packet
+5. Jules runs/generates unit + E2E tests for the changed surface
+6. All tests pass
+7. TARS verifies UAT against the preview build
+8. Brand/compliance scan passes (when applicable)
+9. Merge to `main`
+10. Deploy from `main`
+
+**Prompt changes are code changes** and follow the same process. No direct deploy from a dirty worktree. No merge without tests and UAT. No hidden prompt edits.
 
 **Gate keeper:** Jules runs tests. TARS verifies UAT. No deploy without both green. Tests are not optional. UAT is not optional. Prompts are not copy — they are runtime behavior.
+
+### Cloudflare Integration
+
+Cloudflare Pages consumes the repo through the defined branch/deploy strategy. It does not drive the release process.
+
+**GitHub controls truth. Cloudflare deploys approved truth.**
+
+| Component | Role |
+|---|---|
+| GitHub | Source of truth + review ledger |
+| Branches | Controlled change lanes |
+| CI (tests/lint/build) | Automated quality gate |
+| Cloudflare preview | Staging surface (UAT) |
+| `main` branch | Production-ready source |
+| Cloudflare production | Deploy target |
+
+**Cloudflare Pages branch deployment controls (recommended):**
+
+- **Production branch:** `main`
+- **Preview branches:** `staging`, `feature/*`, `fix/*`, `chore/*`, `docs/*`
+- **Custom domain (future):** `staging.agentarche.com` → `staging` branch (when domains are ready)
+
+**Full promotion pipeline:**
+
+```
+local change
+  ↓
+work branch
+  ↓
+PR (review container)
+  ↓
+CI checks (lint, build, unit, E2E)
+  ↓
+Cloudflare preview (staging surface)
+  ↓
+UAT verification
+  ↓
+merge to main
+  ↓
+Cloudflare production deploy
+```
+
+### Formal Standards
+
+**1. Never treat `main` as a backup target.**
+
+`main` is the production-ready branch. It is not a parking lot.
+
+Bad:
+```
+git add .
+git commit -m "stuff"
+git push origin main
+```
+
+Good:
+```
+git checkout -b chore/<scope>
+git add <intended files>
+git commit -m "chore: <description>"
+git push -u origin chore/<scope>
+```
+
+**2. Branches are candidate lanes.** A branch is not staging by itself. The Cloudflare preview deployment or local `npm run preview` is the staging surface.
+
+**3. Cloudflare follows Git, not the reverse.** Define brand, branching, CI/CD, preview, and deployment gate before connecting cloud production. Otherwise the cloud becomes the place where architecture mistakes become public.

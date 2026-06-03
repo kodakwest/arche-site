@@ -1,70 +1,72 @@
-# Arche Brand Guidelines
+# Arche Brand System
 
-> Canonical brand assets and usage rules for the Arche ecosystem.
-> This file lives at `assets/branding/BRAND.md` in every Arche repo.
+> Canonical brand source for all Arche repos.
+> **This directory** (`_shared-arche-assets/branding/`) is the single source of truth.
+> Copy from here when updating any repo's `assets/branding/`.
 
-## Master Logo: Arche Gateway
+## Master Mark: Gateway Icon
 
-The Arche Gateway icon is the primary brand mark — an arch with a routed beam and origin node.
+The Arche Gateway icon is an architectural arch forming an 'A', with a routed execution beam, origin point, and active execution node.
 
-**Icon variations:**
+### Icon Files
 
-| File | Usage |
-|------|-------|
-| `arche-icon.svg` | Full color — primary use on dark backgrounds |
-| `arche-icon-white.svg` | Solid white — light/dynamic backgrounds |
-| `arche-icon-monochrome.svg` | Single-color — favicon, avatar, constrained spaces |
-| `arche-icon-gateway.svg` | Gateway mark (arch + beam + node) — canonical icon |
-| `arche-icon-flowmark.svg` | Flows product icon mark |
-| `arche-icon-guard.svg` | Guard product icon mark |
+| File | Description | Color |
+|------|-------------|-------|
+| `arche-icon.svg` | Master Gateway icon, full color | Teal `#22d3ee` on transparent |
+| `arche-icon-white.svg` | Light mode variant | Dark `#1a1a1a` for light backgrounds |
+| `arche-icon-monochrome.svg` | Dark bg variant | Ink `#f2f0e8` for dark backgrounds |
+| `arche-icon-gateway.svg` | Standalone Gateway mark | Teal `#22d3ee` |
+| `arche-favicon.svg` | 16px optimized | Teal `#22d3ee` |
 
-**Logo lockups:**
+### Logo Lockups
 
-| File | Usage |
-|------|-------|
-| `arche-logo-horizontal.svg` | Header, navigation, docs — preferred lockup |
-| `arche-logo-vertical.svg` | Hero sections, splash screens |
+| File | Description |
+|------|-------------|
+| `arche-logo-horizontal.svg` | Icon + "ARCHE" + tagline "BUILD SECURE AGENT WORKFLOWS" |
+| `arche-logo-vertical.svg` | Icon stacked above "ARCHE" + tagline |
 
-**Reference:**
+### Reference
 
-| File | Usage |
-|------|-------|
-| `arche-logo-contact-sheet.html` | All logo variations in one view |
+| File | Description |
+|------|-------------|
+| `arche-brand-contact-sheet.html` | Full brand system: all logos, colors, typography in one HTML view |
 
 ## Product Ecosystem Badges
 
-Product badges use a consistent arch silhouette with product-specific accent colors.
+8 product badges using a consistent arch silhouette with product-specific accent colors.
 
-| Badge | Accent | Hex |
-|-------|--------|-----|
-| `arche-badge-studio.svg` | Teal | `#22d3ee` |
-| `arche-badge-flows.svg` | Emerald | `#34d399` |
-| `arche-badge-workers.svg` | Violet | `#818cf8` |
-| `arche-badge-guard.svg` | Rose | `#f472b6` |
-| `arche-badge-registry.svg` | Amber | `#fbbf24` |
-| `arche-badge-runtime.svg` | Orange | `#fb923c` |
-| `arche-badge-audit.svg` | Coral | `#fb7185` |
-| `arche-badge-engine.svg` | Emerald | `#10b981` |
+| Badge | Product | Accent | Hex |
+|-------|---------|--------|-----|
+| `arche-badge-studio.svg` | Studio | Teal | `#22d3ee` |
+| `arche-badge-flows.svg` | Flows | Emerald | `#34d399` |
+| `arche-badge-workers.svg` | Workers | Violet | `#818cf8` |
+| `arche-badge-guard.svg` | Guard | Rose | `#f472b6` |
+| `arche-badge-registry.svg` | Registry | Amber | `#fbbf24` |
+| `arche-badge-runtime.svg` | Runtime | Orange | `#fb923c` |
+| `arche-badge-audit.svg` | Audit | Coral | `#fb7185` |
+| `arche-badge-engine.svg` | Engine | Emerald | `#10b981` |
 
-## Color Palette
+## Color Palette — Drift v2
 
 ### Dark Theme (default)
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--bg-deep` | `#0B0B12` | Deepest background (body) |
+| Token | Value | Role |
+|-------|-------|------|
+| `--bg-deep` | `#0B0B12` | Deepest background |
 | `--bg-base` | `#0c0d0f` | Primary surface |
+| `--bg-alt` | `#030712` | Alt background |
 | `--panel` | `#111215` | Card/panel surface |
-| `--surface` | `#17181c` | Raised surface (hover, active) |
-| `--ink` | `#f2f0e8` | Primary text |
-| `--ink-secondary` | `#a8a6a0` | Secondary/body text |
-| `--ink-muted` | `#6b6a66` | Disabled/muted text |
+| `--surface` | `#17181c` | Raised surface |
 | `--border-panel` | `rgba(255,255,255,0.05)` | Default border |
-| `--accent-primary` | `#22d3ee` | Primary actions, links |
-| `--accent-tertiary` | `#818cf8` | Secondary/violet accent |
-| `--glass-bg` | `rgba(17,18,21,0.75)` | Glass panel background |
+| `--ink` | `#f2f0e8` | Primary text |
+| `--ink-secondary` | `#a8a6a0` | Secondary text |
+| `--ink-muted` | `#6b6a66` | Disabled text |
+| `--accent-primary` | `#22d3ee` | Primary accent |
+| `--accent-secondary` | `#34d399` | Secondary accent |
+| `--accent-tertiary` | `#818cf8` | Tertiary/violet accent |
+| `--glass-bg` | `rgba(17,18,21,0.75)` | Glass panel bg |
 | `--glass-border` | `rgba(34,211,238,0.15)` | Glass panel border |
-| `--glass-blur` | `16px` | Glass backdrop-filter |
+| `--glass-blur` | `16px` | Glass blur radius |
 
 ### Light Theme
 
@@ -76,70 +78,62 @@ Product badges use a consistent arch silhouette with product-specific accent col
 | `--accent-primary` | `#0ea5e9` |
 | `--glass-bg` | `rgba(255,255,255,0.8)` |
 
+### Product Accent Colors
+
+| Product | Color | Hex |
+|---------|-------|-----|
+| Studio | Teal | `#22d3ee` |
+| Flows | Emerald | `#34d399` |
+| Workers | Violet | `#818cf8` |
+| Guard | Rose | `#f472b6` |
+| Registry | Amber | `#fbbf24` |
+| Runtime | Orange | `#fb923c` |
+| Audit | Coral | `#fb7185` |
+| Engine | Emerald | `#10b981` |
+
 ## Typography
 
-| Role | Font | Weight |
-|------|------|--------|
-| UI / Body | Inter (sans-serif) | 400, 500, 600, 700 |
-| Code / Tokens | JetBrains Mono (monospace) | 400, 500, 600 |
+| Role | Font | Usage |
+|------|------|-------|
+| UI / Body | Inter (sans-serif) | All UI text, headings, labels |
+| Code / Tokens | JetBrains Mono (monospace) | Code blocks, agent prompts, session IDs |
 
 ## Brand Voice
 
-| Attribute | Standard |
-|-----------|----------|
+| Attribute | Rule |
+|-----------|------|
 | Tone | Architectural, authoritative, precise |
 | Temperature | Professional but not corporate |
 | Avoid | Magic, wizards, brains, sparkles, "democratizing", robot mascots |
 | Pronouns | "We build. You govern." |
-| Metaphors | Architecture, governance, workshops, craft |
 | Tagline | **Build secure agent workflows.** |
+| Metaphors | Architecture, governance, workshops, craft |
 
-## Dos and Don'ts
+## Directory Standard
 
-### Do
-- Use the Gateway icon as the primary mark
-- Prefer horizontal lockup for navigation and headers
-- Maintain the teal accent as primary interactive color
-- Use glass panels for elevated UI surfaces
-- Keep dark theme as default
-
-### Don't
-- Stretch or distort the Gateway icon
-- Replace the icon with a generic arch or AI symbol
-- Use AgentFlow name or assets anywhere
-- Mix accent colors without purpose (each accent maps to a product)
-- Use light theme as default (dark is primary)
-
-## Directory Structure
-
-Every Arche repo MUST have this branding structure:
+Every Arche repo MUST mirror this structure at `assets/branding/`:
 
 ```
 assets/branding/
-├── BRAND.md                    # This file
-├── arche-icon.svg              # Full color icon
-├── arche-icon-white.svg        # White icon
-├── arche-icon-monochrome.svg   # Monochrome icon
-├── arche-icon-gateway.svg      # Gateway mark
-├── arche-icon-flowmark.svg     # Flowmark icon
-├── arche-icon-guard.svg        # Guard icon
-├── arche-logo-horizontal.svg   # Horizontal lockup
-├── arche-logo-vertical.svg     # Vertical lockup
-├── arche-favicon.svg           # Favicon
-├── arche-logo-contact-sheet.html  # Logo reference
-├── arche-badge-studio.svg      # Product badge
-├── arche-badge-flows.svg       # Product badge
-├── arche-badge-workers.svg     # Product badge
-├── arche-badge-guard.svg       # Product badge
-├── arche-badge-registry.svg    # Product badge
-├── arche-badge-runtime.svg     # Product badge
-├── arche-badge-audit.svg       # Product badge
-└── arche-badge-engine.svg      # Product badge
+├── BRAND.md
+├── arche-icon.svg
+├── arche-icon-white.svg
+├── arche-icon-monochrome.svg
+├── arche-icon-gateway.svg
+├── arche-favicon.svg
+├── arche-logo-horizontal.svg
+├── arche-logo-vertical.svg
+├── arche-brand-contact-sheet.html
+├── arche-badge-studio.svg
+├── arche-badge-flows.svg
+├── arche-badge-workers.svg
+├── arche-badge-guard.svg
+├── arche-badge-registry.svg
+├── arche-badge-runtime.svg
+├── arche-badge-audit.svg
+└── arche-badge-engine.svg
 ```
 
-## Canonical Source
+## Drift CSS Integration
 
-The master brand asset source is at:
-`/home/tsrwest/workspace/arche-rebrand/assets/branding/`
-
-Copy from there when updating any repo's `assets/branding/`.
+The Drift v2 CSS design system lives at `arche-site/drift.css`. Brand icons SHOULD be embedded as inline SVGs in CSS via data URIs where possible, for zero-network design system delivery.

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arche — Brand Contact Sheet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-deep: #08080a; --bg-base: #0c0d0f; --panel: #111215; --surface: #17181c;
+    --ink: #f2f0e8; --ink-secondary: #a8a6a0; --ink-muted: #807e7a;
+    --border: rgba(255,255,255,0.06);
+    --teal: #22d3ee; --green: #34d399; --violet: #818cf8; --rose: #f472b6;
+    --amber: #fbbf24; --orange: #fb923c; --coral: #fb7185; --emerald: #10b981;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  body { background: var(--bg-deep); color: var(--ink); line-height: 1.6; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--teal); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--ink-secondary); }
+  .sub { color: var(--ink-secondary); font-size: 0.9rem; margin-bottom: 2rem; }
+
+  /* Master logo preview */
+  .logo-showcase { display: flex; gap: 2rem; align-items: center; padding: 2rem; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; margin: 1rem 0; flex-wrap: wrap; }
+  .logo-showcase svg { flex-shrink: 0; }
+  .logo-showcase .meta { flex: 1; min-width: 200px; }
+  .logo-showcase .meta .name { font-weight: 600; font-size: 1rem; }
+  .logo-showcase .meta .desc { color: var(--ink-secondary); font-size: 0.85rem; margin-top: 0.25rem; }
+
+  /* Product badge grid */
+  .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .badge-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .badge-card svg { width: 36px; height: 36px; margin: 0 auto 0.5rem; }
+  .badge-card .product-name { font-size: 0.85rem; font-weight: 500; }
+  .badge-card .product-role { font-size: 0.7rem; color: var(--ink-muted); margin-top: 0.2rem; }
+
+  /* Color swatches */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
+  .swatch { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; }
+  .swatch .color { height: 40px; border-radius: 6px; margin-bottom: 0.5rem; }
+  .swatch .name { font-size: 0.85rem; font-weight: 500; }
+  .swatch .hex { font-size: 0.75rem; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; }
+  .swatch .role { font-size: 0.7rem; color: var(--ink-secondary); }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Arche — Brand Contact Sheet</h1>
+  <p class="sub">Master logo + product badge family + accent palette. All SVGs in <code>_shared-arche-assets/branding/</code></p>
+
+  <h2>Master Mark — Gateway Icon</h2>
+  <div class="logo-showcase">
+    <div style="width:64px;height:64px;" id="master-preview"></div>
+    <div class="meta">
+      <div class="name">Arche Gateway</div>
+      <div class="desc">Architectural arch + routed execution beam + origin point + active node.<br>Monochrome-safe. Scales 16px to 256px.</div>
+    </div>
+  </div>
+
+  <h2>Horizontal Lockup</h2>
+  <div class="logo-showcase">
+    <div style="width:240px;height:48px;" id="horiz-preview"></div>
+    <div class="meta">
+      <div class="desc">Icon + "ARCHE" wordmark (Inter 600, 0.08em tracking) + tagline.<br>For headers, docs, social avatars.</div>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+    <div class="logo-showcase" style="flex:1; min-width:120px; flex-direction:column; text-align:center;">
+      <div style="width:32px;height:32px;" id="favicon-preview"></div>
+      <div class="meta"><div class="name">Favicon</div><div class="desc">16px</div></div>
+    </div>
+    <div class="logo-showcase" style="flex:1; min-width:120px; flex-direction:column; text-align:center;">
+      <div style="width:32px;height:32px;" id="mono-preview"></div>
+      <div class="meta"><div class="name">Monochrome</div><div class="desc">Dark bg</div></div>
+    </div>
+    <div class="logo-showcase" style="flex:1; min-width:120px; flex-direction:column; text-align:center;">
+      <div style="width:32px;height:32px;" id="white-preview"></div>
+      <div class="meta"><div class="name">White</div><div class="desc">Light bg</div></div>
+    </div>
+    <div class="logo-showcase" style="flex:1; min-width:120px; flex-direction:column; text-align:center;">
+      <div style="width:48px;height:48px;" id="vertical-preview"></div>
+      <div class="meta"><div class="name">Vertical</div><div class="desc">Stacked lockup</div></div>
+    </div>
+  </div>
+
+  <h2>Product Badge Family</h2>
+  <p style="color:var(--ink-secondary);font-size:0.85rem;margin-bottom:1rem;">Unified Gateway motif. Each product gets its accent color + subtle distinguishing internal element.</p>
+  <div class="badge-grid">
+    <div class="badge-card"><div id="badge-studio"></div><div class="product-name">Arche Studio</div><div class="product-role">Design & generate</div></div>
+    <div class="badge-card"><div id="badge-flows"></div><div class="product-name">Arche Flows</div><div class="product-role">Stateful orchestration</div></div>
+    <div class="badge-card"><div id="badge-workers"></div><div class="product-name">Arche Workers</div><div class="product-role">Task-specific agents</div></div>
+    <div class="badge-card"><div id="badge-guard"></div><div class="product-name">Arche Guard</div><div class="product-role">Security & policy gates</div></div>
+    <div class="badge-card"><div id="badge-registry"></div><div class="product-name">Arche Registry</div><div class="product-role">Approved tools & agents</div></div>
+    <div class="badge-card"><div id="badge-runtime"></div><div class="product-name">Arche Runtime</div><div class="product-role">Execution & scheduling</div></div>
+    <div class="badge-card"><div id="badge-audit"></div><div class="product-name">Arche Audit</div><div class="product-role">Logs & compliance</div></div>
+    <div class="badge-card"><div id="badge-engine"></div><div class="product-name">Engine</div><div class="product-role">Analysis & storage</div></div>
+  </div>
+
+  <h2>Accent Palette</h2>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="color" style="background:#22d3ee"></div><div class="name">Studio</div><div class="hex">#22d3ee</div><div class="role">Design & generate</div></div>
+    <div class="swatch"><div class="color" style="background:#34d399"></div><div class="name">Flows</div><div class="hex">#34d399</div><div class="role">Stateful orchestration</div></div>
+    <div class="swatch"><div class="color" style="background:#818cf8"></div><div class="name">Workers</div><div class="hex">#818cf8</div><div class="role">Task-specific agents</div></div>
+    <div class="swatch"><div class="color" style="background:#f472b6"></div><div class="name">Guard</div><div class="hex">#f472b6</div><div class="role">Security & policy gates</div></div>
+    <div class="swatch"><div class="color" style="background:#fbbf24"></div><div class="name">Registry</div><div class="hex">#fbbf24</div><div class="role">Approved tools & agents</div></div>
+    <div class="swatch"><div class="color" style="background:#fb923c"></div><div class="name">Runtime</div><div class="hex">#fb923c</div><div class="role">Execution & scheduling</div></div>
+    <div class="swatch"><div class="color" style="background:#fb7185"></div><div class="name">Audit</div><div class="hex">#fb7185</div><div class="role">Logs & compliance</div></div>
+    <div class="swatch"><div class="color" style="background:#10b981"></div><div class="name">Engine</div><div class="hex">#10b981</div><div class="role">Analysis & storage</div></div>
+    <div class="swatch"><div class="color" style="background:#f2f0e8"></div><div class="name">Ink</div><div class="hex">#f2f0e8</div><div class="role">Primary text</div></div>
+    <div class="swatch"><div class="color" style="background:#a8a6a0"></div><div class="name">Ink Secondary</div><div class="hex">#a8a6a0</div><div class="role">Body/meta text</div></div>
+  </div>
+
+  <h2>File Inventory</h2>
+  <table style="width:100%; border-collapse:collapse; font-size:0.85rem; margin-top:1rem;">
+    <tr><th style="text-align:left; padding:0.5rem; border-bottom:1px solid var(--border); color:var(--ink-secondary);">File</th><th style="text-align:left; padding:0.5rem; border-bottom:1px solid var(--border); color:var(--ink-secondary);">Use</th></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-icon.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Master brand mark (teal, 24×24)</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-icon-monochrome.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Master mark on dark backgrounds</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-icon-white.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Master mark on light backgrounds</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-logo-horizontal.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Horizontal wordmark lockup (headers, site)</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-logo-vertical.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Stacked icon+wordmark (social, app icons)</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-favicon.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">Browser tab icon (16px optimized)</td></tr>
+    <tr><td style="padding:0.5rem; border-bottom:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">arche-badge-*.svg</td><td style="padding:0.5rem; border-bottom:1px solid var(--border);">8 product badges (studio/flows/workers/guard/registry/runtime/audit/engine)</td></tr>
+  </table>
+</div>
+
+<script>
+// Inline all SVGs directly — no fetch needed for standalone viewing
+;(function(){
+const svgs = {
+  'arche-icon': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 22 L4 12 C4 4 20 4 20 12 L20 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M4 15 L20 15" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="15" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.35"/>
+    <circle cx="12" cy="15" r="1.5" fill="#22d3ee"/>
+    <circle cx="12" cy="3" r="1.5" fill="#22d3ee"/>
+  </svg>`,
+  'arche-logo-horizontal': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 32" fill="none">
+    <g transform="translate(4,4)"><path d="M4 24 L4 12 C4 4 20 4 20 12 L20 24" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 16 L20 16" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.35"/><circle cx="12" cy="16" r="1.5" fill="#22d3ee"/><circle cx="12" cy="3" r="1.5" fill="#22d3ee"/></g>
+    <text x="36" y="24" font-family="'Inter',system-ui,sans-serif" font-size="20" font-weight="600" letter-spacing="0.08em" fill="#f2f0e8" dominant-baseline="bottom">ARCHE</text>
+    <text x="36" y="30" font-family="'Inter',system-ui,sans-serif" font-size="6" font-weight="400" letter-spacing="0.15em" fill="#6b7280" dominant-baseline="bottom">BUILD SECURE AGENT WORKFLOWS</text>
+  </svg>`,
+  'arche-favicon': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+    <path d="M2 15 L2 8 C2 2 14 2 14 8 L14 15" stroke="#22d3ee" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M2 10 L14 10" stroke="#22d3ee" stroke-width="1" stroke-linecap="round"/>
+    <circle cx="8" cy="3" r="1" fill="#22d3ee"/>
+    <circle cx="8" cy="10" r="2" fill="none" stroke="#22d3ee" stroke-width="0.5" opacity="0.35"/>
+    <circle cx="8" cy="10" r="1" fill="#22d3ee"/>
+  </svg>`,
+  'arche-icon-monochrome': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#f2f0e8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M3.5 14 L20.5 14" stroke="#f2f0e8" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="3.5" r="1.5" fill="#f2f0e8"/>
+    <circle cx="12" cy="14" r="3" fill="none" stroke="#f2f0e8" stroke-width="0.75" opacity="0.3"/>
+    <circle cx="12" cy="14" r="1.5" fill="#f2f0e8"/>
+  </svg>`,
+  'arche-icon-white': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 22 L4 12 C4 4 20 4 20 12 L20 22" stroke="#f2f0e8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M4 15 L20 15" stroke="#f2f0e8" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="15" r="3" fill="none" stroke="#f2f0e8" stroke-width="0.75" opacity="0.35"/>
+    <circle cx="12" cy="15" r="1.5" fill="#f2f0e8"/>
+    <circle cx="12" cy="3" r="1.5" fill="#f2f0e8"/>
+  </svg>`,
+  'arche-logo-vertical': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" fill="none">
+    <g transform="translate(20,2)"><path d="M4 24 L4 12 C4 4 20 4 20 12 L20 24" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 16 L20 16" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.35"/><circle cx="12" cy="16" r="1.5" fill="#22d3ee"/><circle cx="12" cy="3" r="1.5" fill="#22d3ee"/></g>
+    <text x="32" y="50" font-family="'Inter',system-ui,sans-serif" font-size="14" font-weight="600" letter-spacing="0.08em" fill="#f2f0e8" text-anchor="middle" dominant-baseline="bottom">ARCHE</text>
+    <text x="32" y="57" font-family="'Inter',system-ui,sans-serif" font-size="4.5" font-weight="400" letter-spacing="0.15em" fill="#6b7280" text-anchor="middle" dominant-baseline="bottom">BUILD SECURE AGENT WORKFLOWS</text>
+  </svg>`,
+  'arche-badge-studio': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M4 14 L20 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.35"/>
+    <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
+    <circle cx="12" cy="3" r="1.5" fill="#22d3ee"/>
+  </svg>`,
+  'arche-badge-flows': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M4 14 L20 14" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M8 14 L12 8 L16 14" stroke="#34d399" stroke-width="0.75" opacity="0.4"/>
+    <circle cx="12" cy="14" r="1.5" fill="#34d399"/>
+    <circle cx="12" cy="3" r="1.5" fill="#34d399"/>
+  </svg>`,
+  'arche-badge-workers': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#818cf8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="8" cy="14" r="1.5" fill="#818cf8"/>
+    <circle cx="16" cy="14" r="1.5" fill="#818cf8"/>
+    <circle cx="12" cy="3" r="1.5" fill="#818cf8"/>
+  </svg>`,
+  'arche-badge-guard': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#f472b6" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="12" cy="14" r="3" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="12" cy="14" r="1.5" fill="#f472b6"/>
+    <circle cx="12" cy="3" r="1.5" fill="#f472b6"/>
+  </svg>`,
+  'arche-badge-registry': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12" width="6" height="4" rx="1" fill="none" stroke="#fbbf24" stroke-width="0.75"/>
+    <circle cx="12" cy="3" r="1.5" fill="#fbbf24"/>
+  </svg>`,
+  'arche-badge-runtime': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#fb923c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="12" cy="14" r="3" fill="none" stroke="#fb923c" stroke-width="0.75"/>
+    <path d="M12 11 L12 14 L14 16" stroke="#fb923c" stroke-width="0.75" stroke-linecap="round"/>
+    <circle cx="12" cy="3" r="1.5" fill="#fb923c"/>
+  </svg>`,
+  'arche-badge-audit': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#fb7185" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M9 14 L11 16 L15 12" stroke="#fb7185" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="3" r="1.5" fill="#fb7185"/>
+  </svg>`,
+  'arche-badge-engine': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M4 20 L4 12 C4 4 20 4 20 12 L20 20" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="8" y="11" width="8" height="6" rx="1.5" fill="none" stroke="#10b981" stroke-width="0.75"/>
+    <circle cx="12" cy="14" r="1.5" fill="#10b981"/>
+    <circle cx="12" cy="3" r="1.5" fill="#10b981"/>
+  </svg>`
+};
+
+// Assign all
+const map = {
+  'master-preview': 'arche-icon',
+  'horiz-preview': 'arche-logo-horizontal',
+  'favicon-preview': 'arche-favicon',
+  'mono-preview': 'arche-icon-monochrome',
+  'white-preview': 'arche-icon-white',
+  'vertical-preview': 'arche-logo-vertical',
+  'badge-studio': 'arche-badge-studio',
+  'badge-flows': 'arche-badge-flows',
+  'badge-workers': 'arche-badge-workers',
+  'badge-guard': 'arche-badge-guard',
+  'badge-registry': 'arche-badge-registry',
+  'badge-runtime': 'arche-badge-runtime',
+  'badge-audit': 'arche-badge-audit',
+  'badge-engine': 'arche-badge-engine'
+};
+Object.keys(map).forEach(id => {
+  document.getElementById(id).innerHTML = svgs[map[id]] || '';
+});
+})();
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # Spec: Architect Chat + Prompt & Agent Workbench
 
 ## Overview
-Two integrated capabilities that complete the AgentFlow developer experience:
+Two integrated capabilities that complete the Arche developer experience:
 1. **Architect Chat** — An interactive agent that designs your agent architecture, then generates all the config files (AGENTS.md, .instructions.md, VS Code settings, copilot-instructions.md)
 2. **Prompt & Agent Workbench** — A development environment for analyzing prompts, tracking agent performance metrics, and optimizing agent behavior
 
@@ -55,7 +55,7 @@ files:
 ## Part 2: Prompt & Agent Workbench
 
 ### Purpose
-A development dashboard that brings the AI Engineer Coach capability directly into AgentFlow. Analyze prompt quality, track session metrics, identify optimization opportunities — the things we learned from running Coach on our own workflow.
+A development dashboard that brings the AI Engineer Coach capability directly into Arche. Analyze prompt quality, track session metrics, identify optimization opportunities — the things we learned from running Coach on our own workflow.
 
 ### Data Sources
 - **Codex sessions** (Windows + WSL JSONL logs)
