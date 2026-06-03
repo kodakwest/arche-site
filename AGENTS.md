@@ -134,7 +134,10 @@ Do not add a permanent `staging` branch unless a long-lived shared staging URL i
 7. TARS verifies UAT against the preview build
 8. Brand/compliance scan passes (when applicable)
 9. Merge to `main`
-10. Deploy from `main`
+10. Push `main` → `master` for production deploy  
+    `git push origin main:master`
+
+**No quick fixes, no direct deploys, no hot patches to production.** Every change follows the full promotion flow. If a fix is small enough to skip the gate, it's small enough to wait for the gate.
 
 **Prompt changes are code changes** and follow the same process. No direct deploy from a dirty worktree. No merge without tests and UAT. No hidden prompt edits.
 
@@ -152,13 +155,14 @@ Cloudflare Pages consumes the repo through the defined branch/deploy strategy. I
 | Branches | Controlled change lanes |
 | CI (tests/lint/build) | Automated quality gate |
 | Cloudflare preview | Staging surface (UAT) |
-| `main` branch | Production-ready source |
+| `main` branch | Integration branch, production-ready source |
+| `master` branch | Cloudflare production deploy target |
 | Cloudflare production | Deploy target |
 
 **Cloudflare Pages branch deployment controls (recommended):**
 
-- **Production branch:** `main`
-- **Preview branches:** `staging`, `feature/*`, `fix/*`, `chore/*`, `docs/*`
+- **Production branch:** `master` (push `git push origin main:master`)
+- **Preview branches:** `main`, `staging`, `feature/*`, `fix/*`, `chore/*`, `docs/*`
 - **Custom domain (future):** `staging.agentarche.com` → `staging` branch (when domains are ready)
 
 **Full promotion pipeline:**
