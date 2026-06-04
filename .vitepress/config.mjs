@@ -52,6 +52,7 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/assets/branding/arche-icon.svg',
+    logoLink: { link: '/', target: '_self' },
     siteTitle: 'Arche Docs',
     nav: [
       { text: 'Docs', link: '/docs/' },
