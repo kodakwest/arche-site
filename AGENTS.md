@@ -79,7 +79,9 @@ Brand SVGs are in `/home/tsrwest/workspace/arche-rebrand/assets/branding/`:
 
 ## Deployment
 - **Platform:** Cloudflare Pages
-- **Build:** Vite + React (or static HTML output)
+- **Build:** VitePress (`npm run docs:build`)
+- **Output directory:** `dist`
+- **Static marketing pages:** live in `public/` and are copied verbatim into `dist/`
 - **URLs:** `agentarche.com` → CF Pages
 - **Custom domain:** Set up in CF Pages dashboard after build
 

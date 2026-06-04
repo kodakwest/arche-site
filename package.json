@@ -1,0 +1,31 @@
+{
+  "name": "arche-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arche marketing site, docs, and blog.",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodakwest/arche-site.git"
+  },
+  "keywords": [
+    "arche",
+    "agent-workflows",
+    "vitepress"
+  ],
+  "author": "Arche",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kodakwest/arche-site/issues"
+  },
+  "homepage": "https://github.com/kodakwest/arche-site#readme",
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.35"
+  }
+}
