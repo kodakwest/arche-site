@@ -2,11 +2,12 @@ name = "arche-site"
 compatibility_date = "2026-06-04"
 pages_build_output_dir = "dist"
 
-[env.production]
-[[env.production.d1_databases]]
+[[d1_databases]]
 binding = "arche_leads"
 database_name = "arche_leads"
 database_id = "67770ef1-8b0f-47d6-a59a-2b530a55a4da"
+
+[env.production]
 
 [vars]
 ENVIRONMENT = "production"

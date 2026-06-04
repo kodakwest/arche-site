@@ -15,7 +15,7 @@ interface LeadSubmission {
   'cf-turnstile-response'?: string;
 }
 
-export async function onRequestPost({ request, env }: { request: Request; env: Env }): Promise<Response> {
+export async function onRequestPost({ request, env, waitUntil }: EventContext<Env, string, Record<string, unknown>>): Promise<Response> {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -101,7 +101,7 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
     // If source is 'contact' and we have a message, send notification
     if (body.source === 'contact' && body.message && env.CONTACT_EMAIL_TO) {
       // Fire-and-forget notification — uses MailChannels free transactional email
-      ctx.waitUntil(sendNotification(body, env));
+      waitUntil(sendNotification(body, env));
     }
 
     return new Response(JSON.stringify({
