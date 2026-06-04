@@ -56,7 +56,7 @@ export default defineConfig({
     nav: [
       { text: 'Docs', link: '/docs/' },
       { text: 'Blog', link: '/blog/' },
-      { text: 'Home', link: '/' }
+      { text: 'Home', link: '/', target: '_self' }
     ],
     sidebar: {
       '/docs/': [
@@ -64,7 +64,8 @@ export default defineConfig({
           text: 'Docs',
           items: [
             { text: 'Overview', link: '/docs/' },
-            { text: 'Operating Model', link: '/docs/operating-model' }
+            { text: 'Operating Model', link: '/docs/operating-model' },
+            { text: 'Publishing Guide', link: '/docs/publishing-guide' }
           ]
         }
       ],
