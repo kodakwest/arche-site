@@ -8,6 +8,10 @@ database_name = "arche_leads"
 database_id = "67770ef1-8b0f-47d6-a59a-2b530a55a4da"
 
 [env.production]
+[[env.production.d1_databases]]
+binding = "arche_leads"
+database_name = "arche_leads"
+database_id = "67770ef1-8b0f-47d6-a59a-2b530a55a4da"
 
 [vars]
 ENVIRONMENT = "production"
