@@ -1902,10 +1902,10 @@ status: active
         });
       }
 
-      // Early Access Registration simulator
+      // Early Access Registration
       const earlyAccessForm = document.getElementById('earlyAccessForm');
       if (earlyAccessForm) {
-        earlyAccessForm.addEventListener('submit', (e) => {
+        earlyAccessForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const emailInput = document.getElementById('heroEmail');
           const submitBtn = earlyAccessForm.querySelector('button[type="submit"]');
@@ -1915,23 +1915,43 @@ status: active
             submitBtn.disabled = true;
             submitBtn.textContent = 'Registering...';
             
-            setTimeout(() => {
-              submitBtn.textContent = 'Access Granted';
-              submitBtn.style.background = 'var(--accent-secondary)';
-              submitBtn.style.borderColor = 'var(--accent-secondary)';
-              emailInput.value = '';
-              emailInput.placeholder = 'Transmission logged successfully.';
-              emailInput.disabled = true;
+            try {
+              const res = await fetch('/api/forms/lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: emailInput.value,
+                  source: 'hero'
+                })
+              });
+              const data = await res.json();
               
-              setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-                submitBtn.style.borderColor = '';
-                emailInput.disabled = false;
-                emailInput.placeholder = 'your@email.com';
-              }, 4000);
-            }, 1200);
+              if (data.success) {
+                submitBtn.textContent = '✓ Access Granted';
+                submitBtn.style.background = 'var(--accent-secondary)';
+                submitBtn.style.borderColor = 'var(--accent-secondary)';
+                emailInput.value = '';
+                emailInput.placeholder = 'Transmission logged successfully.';
+                emailInput.disabled = true;
+              } else {
+                submitBtn.textContent = '✗ Error — try again';
+                submitBtn.style.background = 'var(--accent-guard)';
+                submitBtn.style.borderColor = 'var(--accent-guard)';
+              }
+            } catch {
+              submitBtn.textContent = '✗ Connection failed';
+              submitBtn.style.background = 'var(--accent-guard)';
+              submitBtn.style.borderColor = 'var(--accent-guard)';
+            }
+            
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+              submitBtn.style.background = '';
+              submitBtn.style.borderColor = '';
+              emailInput.disabled = false;
+              emailInput.placeholder = 'your@email.com';
+            }, 4000);
           }
         });
       }
@@ -1961,8 +1981,8 @@ status: active
       });
     })();
 
-    // Contact Form Submission Simulator (Step 8/9)
-    function handleContactSubmit(event) {
+    // Contact Form Submission
+    async function handleContactSubmit(event) {
       event.preventDefault();
       
       const name = document.getElementById('form-name').value;
@@ -1971,19 +1991,48 @@ status: active
       const details = document.getElementById('form-details').value;
 
       const card = document.getElementById('contact-card');
-      if (card) {
-        card.style.opacity = '0';
-        setTimeout(() => {
-          card.innerHTML = `
-            <div class="drift-hud-readout" style="margin-bottom: 1rem; color: var(--accent-secondary);">[Transmission Received]</div>
-            <h3 class="pricing-tier-name" style="color: var(--accent-secondary); margin-bottom: 1rem;">Inquiry Logged</h3>
-            <p style="font-size: 0.875rem; color: var(--ink-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
-              Thank you, <strong>${name}</strong>. Our engineering team will review your project scope and contact you at <strong>${email}</strong> regarding the <strong>${tier}</strong> inquiry within 1 business day.
-            </p>
-            <div class="drift-hud-readout" style="color: rgba(var(--accent-secondary-rgb), 0.5); font-size: 0.6875rem;">SECURE CHANNEL CLOSED</div>
-          `;
-          card.style.opacity = '1';
-        }, 300);
+      const btn = card?.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+      try {
+        const res = await fetch('/api/forms/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            name,
+            source: 'contact',
+            message: `Tier: ${tier}\n\nDetails:\n${details}`
+          })
+        });
+        const data = await res.json();
+
+        if (card) {
+          card.style.opacity = '0';
+          setTimeout(() => {
+            card.innerHTML = `
+              <div class="drift-hud-readout" style="margin-bottom: 1rem; color: var(--accent-secondary);">[Transmission Received]</div>
+              <h3 class="pricing-tier-name" style="color: var(--accent-secondary); margin-bottom: 1rem;">Inquiry Logged</h3>
+              <p style="color: var(--ink-secondary); font-size: 0.9rem; line-height: 1.6;">
+                ${data.success 
+                  ? "Thanks ${name}! We've received your inquiry and will respond within 24 hours."
+                  : "Something went wrong. Please email us directly at consulting@agentarche.com."}
+              </p>`;
+            card.style.opacity = '1';
+          }, 300);
+        }
+      } catch {
+        if (card) {
+          card.style.opacity = '0';
+          setTimeout(() => {
+            card.innerHTML = `
+              <div class="drift-hud-readout" style="margin-bottom: 1rem; color: var(--accent-guard);">[Connection Error]</div>
+              <h3 class="pricing-tier-name" style="color: var(--accent-guard); margin-bottom: 1rem;">Not Sent</h3>
+              <p style="color: var(--ink-secondary); font-size: 0.9rem; line-height: 1.6;">
+                Could not reach our servers. Please email consulting@agentarche.com directly.</p>`;
+            card.style.opacity = '1';
+          }, 300);
+        }
       }
     }
   </script>
