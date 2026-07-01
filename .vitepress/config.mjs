@@ -22,7 +22,14 @@ export default defineConfig({
       }
     ],
     ['meta', { property: 'og:url', content: 'https://agentarche.com/' }],
-    ['link', { rel: 'icon', href: '/assets/branding/arche-favicon.svg', type: 'image/svg+xml' }]
+    ['link', { rel: 'icon', href: '/assets/branding/arche-favicon.svg', type: 'image/svg+xml' }],
+    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-BHSD9WSX6Y' }],
+    ['script', {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BHSD9WSX6Y');`
+    ]
   ],
   transformHead() {
     return [
