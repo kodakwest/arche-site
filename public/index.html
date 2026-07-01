@@ -1,2052 +1,447 @@
 <!--
 ---
-title: "AgentArche Studio | Turn Prompts Into Pipelines"
-artifact_type: Knowledge_Base
-source_context: Drift redesign marketing site build
+title: "AgentArche — The Control Plane for Governed Autonomous Loops"
+artifact_type: Marketing_Site
 domain: Cloud/Infrastructure
-systems: Arche
-primary_entities: Arche; AI Agent Orchestration; Drift Design System
-last_updated: 2026-05-25
+systems: Arche; AgentArche
+primary_entities: AgentArche; Loop Engineering; Governance
+last_updated: 2026-07-01
 status: active
 ---
 -->
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Tags -->
-  <title>AgentArche Studio | Turn Prompts Into Pipelines</title>
-  <meta name="description" content="The open-source orchestration layer for LLM workflows. Build secure, local-first AI agents from the ground up and run where your data lives.">
-  
-  <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="AgentArche Studio | Turn Prompts Into Pipelines">
-  <meta property="og:description" content="Build secure, local-first AI agents from the ground up and run where your data lives.">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentArche | Governed AI Loops</title>
+  <meta name="description" content="AgentArche turns prompts into pipelines and pipelines into governed AI loops with triggers, tools, memory, verification, approvals, and audit trails." />
+  <meta name="theme-color" content="#08080f">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://agentarche.com">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M2.5 14 L2.5 7 C2.5 2 13.5 2 13.5 7 L13.5 14' stroke='%2322d3ee' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M2.5 10 L13.5 10' stroke='%2322d3ee' stroke-width='1.2' stroke-linecap='round'/%3E%3Ccircle cx='8' cy='2.5' r='1' fill='%2322d3ee'/%3E%3Ccircle cx='8' cy='10' r='2' fill='none' stroke='%2322d3ee' stroke-width='0.6' opacity='0.3'/%3E%3Ccircle cx='8' cy='10' r='1' fill='%2322d3ee'/%3E%3C/svg%3E">
-  
-  <!-- Fonts -->
+  <meta property="og:site_name" content="AgentArche">
+  <meta property="og:url" content="https://agentarche.com/">
+  <meta property="og:title" content="AgentArche | Governed AI Loops">
+  <meta property="og:description" content="AgentArche turns prompts into pipelines and pipelines into governed AI loops with triggers, tools, memory, verification, approvals, and audit trails.">
+  <link rel="icon" href="/assets/branding/arche-favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="drift.css">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════════════════════════════
-       DRIFT DESIGN SYSTEM v2.0 — CANONICAL STYLES
-       ═══════════════════════════════════════════════════════════════ */
-    
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     :root {
-      /* Backgrounds */
-      --bg-deep: #0B0B12;
-      --bg-base: #0c0d0f;
-      --bg-alt: #030712;
-      --panel: #111215;
-      --surface: #17181c;
-      --border-panel: rgba(255, 255, 255, 0.05);
-
-      /* Typography ink */
-      --ink: #f2f0e8;
-      --ink-secondary: #a8a6a0;
-      --ink-muted: #6b6a66;
-
-      /* Accent Palette (Domain: Cloud/Infrastructure = Teal) */
-      --accent-primary: #22d3ee;
-      --accent-primary-rgb: 34, 211, 238;
-      --accent-secondary: #34d399;
-      --accent-secondary-rgb: 52, 211, 153;
-      --accent-tertiary: #818cf8;
-      --accent-tertiary-rgb: 129, 140, 248;
-      --accent-warning: #f472b6;
-      --accent-studio: #22d3ee;
-      --accent-flows: #34d399;
-      --accent-workers: #818cf8;
-      --accent-guard: #f472b6;
-      --accent-registry: #fbbf24;
-      --accent-runtime: #fb923c;
-      --accent-audit: #fb7185;
-      --accent-engine: #10b981;
-
-      /* Glassmorphism */
-      --glass-bg: rgba(17, 18, 21, 0.75);
-      --glass-border: rgba(34, 211, 238, 0.15);
-      --glass-blur: 16px;
-      --grain-opacity: 0.035;
-
-      /* Font Stacks */
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-
-      /* Layout Dimensions */
-      --content-max: 1200px;
-
-      /* Animation patterns */
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-      --duration-fast: 150ms;
-      --duration-base: 300ms;
-      --duration-slow: 500ms;
+      color-scheme: dark;
+      --bg-deep:#08080f; --bg-base:#0b0c15; --bg-alt:#06060d; --panel:#12131f; --surface:#181a28; --surface-raised:#1f2132;
+      --ink:#f3f4fb; --ink-secondary:#a9adc4; --ink-muted:#71748c; --ink-faint:#45485e;
+      --border:rgba(255,255,255,.07); --border-strong:rgba(255,255,255,.14); --border-panel:rgba(255,255,255,.05);
+      --aurora-cyan:#34e0f0; --aurora-indigo:#7c8cf8; --aurora-rose:#f472b6; --aurora-mint:#5eead4;
+      --aurora-cyan-rgb:52,224,240; --aurora-indigo-rgb:124,140,248; --aurora-rose-rgb:244,114,182; --aurora-mint-rgb:94,234,212;
+      --teal:#34e0f0; --green:#34d399; --indigo:#7c8cf8; --rose:#f472b6; --gold:#e0b53a; --coral:#e07d5f; --amber:#fbbf24; --orange:#fb923c; --blue:#60a5fa;
+      --teal-rgb:52,224,240; --green-rgb:52,211,153; --indigo-rgb:124,140,248; --rose-rgb:244,114,182; --gold-rgb:224,181,58; --coral-rgb:224,125,95; --amber-rgb:251,191,36; --orange-rgb:251,146,60; --blue-rgb:96,165,250;
+      --accent-primary:var(--aurora-cyan); --accent-primary-rgb:var(--aurora-cyan-rgb); --accent-secondary:var(--green); --accent-tertiary:var(--aurora-indigo); --accent-warning:var(--rose);
+      --glass-bg:rgba(255,255,255,.055); --glass-bg-strong:rgba(255,255,255,.085); --glass-border:rgba(255,255,255,.12); --glass-blur:22px; --glass-inner:inset 0 1px 0 rgba(255,255,255,.14); --glass-shadow:0 20px 60px rgba(0,0,0,.45);
+      --grain-opacity:.035; --scanline-opacity:.015;
+      --shadow-lg:0 20px 60px rgba(0,0,0,.55); --glow-teal:0 0 14px rgba(var(--teal-rgb),.34); --glow-indigo:0 0 14px rgba(var(--indigo-rgb),.34); --glow-aurora:0 8px 28px rgba(var(--aurora-cyan-rgb),.30),0 8px 28px rgba(var(--aurora-indigo-rgb),.20);
+      --grad-aurora:linear-gradient(120deg,var(--aurora-cyan) 0%,var(--aurora-indigo) 52%,var(--aurora-rose) 100%);
+      --grad-ambient:radial-gradient(40% 50% at 22% 26%,rgba(var(--aurora-cyan-rgb),.18),transparent 70%),radial-gradient(42% 48% at 76% 30%,rgba(var(--aurora-indigo-rgb),.18),transparent 70%),radial-gradient(46% 55% at 54% 88%,rgba(var(--aurora-rose-rgb),.14),transparent 72%);
+      --font-sans:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; --font-display:'Inter Tight','Inter',system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace; --font-serif:'Instrument Serif',Georgia,serif;
+      --radius-xs:3px; --radius-sm:4px; --radius-md:6px; --radius-lg:8px; --radius-xl:12px; --radius-2xl:18px; --radius-pill:999px; --content-max:1200px;
+      --ease-out:cubic-bezier(.22,1,.36,1);
     }
-
-    /* ═══════════════════════════════════════════════════════════════
-       LIGHT THEME — Warm, colorful alternative
-       ═══════════════════════════════════════════════════════════════ */
     [data-theme="light"] {
-      --bg-deep: #f8f6f2;
-      --bg-base: #f0ede8;
-      --bg-alt: #e8e4de;
-      --panel: #ffffff;
-      --surface: #f5f3ef;
-      --border-panel: rgba(0, 0, 0, 0.06);
-
-      --ink: #1a1a1a;
-      --ink-secondary: #5a5a5a;
-      --ink-muted: #9a9a9a;
-
-      --accent-primary: #0ea5e9;
-      --accent-primary-rgb: 14, 165, 233;
-      --accent-secondary: #10b981;
-      --accent-secondary-rgb: 16, 185, 129;
-      --accent-tertiary: #8b5cf6;
-      --accent-tertiary-rgb: 139, 92, 246;
-      --accent-studio: #22d3ee;
-      --accent-flows: #34d399;
-      --accent-workers: #818cf8;
-      --accent-guard: #f472b6;
-      --accent-registry: #fbbf24;
-      --accent-runtime: #fb923c;
-      --accent-audit: #fb7185;
-      --accent-engine: #10b981;
-
-      --glass-bg: rgba(255, 255, 255, 0.8);
-      --glass-border: rgba(14, 165, 233, 0.2);
-      --glass-blur: 16px;
-      --grain-opacity: 0.015;
-
-      /* Card shadow for light mode */
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --card-shadow-hover: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
-    }
-    [data-theme="light"] .drift-card {
-      box-shadow: var(--card-shadow);
-    }
-    [data-theme="light"] .drift-card:hover {
-      box-shadow: var(--card-shadow-hover);
-    }
-    [data-theme="light"] .drift-card--glass {
-      box-shadow: var(--card-shadow);
-    }
-    [data-theme="light"] .drift-hud-frame {
-      border-color: rgba(14, 165, 233, 0.2);
-    }
-
-    /* ── Base Setup ── */
-    html {
-      scroll-behavior: smooth;
-      background-color: var(--bg-deep);
-      color: var(--ink);
-      font-family: var(--font-sans);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      line-height: 1.6;
-      position: relative;
-    }
-
-    /* ── Scrollbars ── */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-deep);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--panel);
-      border-radius: 4px;
-      border: 2px solid var(--bg-deep);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-primary);
-    }
-
-    /* Selection Highlighting */
-    ::selection {
-      background: rgba(var(--accent-primary-rgb), 0.25);
-      color: var(--ink);
-    }
-
-    /* ── Overlays (Grain & Scanline) ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      pointer-events: none;
-      opacity: var(--grain-opacity);
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(var(--accent-primary-rgb), 0.008) 2px,
-        rgba(var(--accent-primary-rgb), 0.008) 4px
-      );
-    }
-
-    /* ── App Shell / Layout ── */
-    .app-shell {
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    section {
-      padding: 6rem 0;
-      position: relative;
-    }
-    
-    section + section {
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    /* ── Typography Utilities ── */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-sans);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-    }
-    
-    p {
-      color: var(--ink-secondary);
-      font-size: 1rem;
-    }
-
-    .font-mono {
-      font-family: var(--font-mono);
-    }
-
-    /* ── Button Components ── */
-    .drift-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: all var(--duration-fast) var(--ease-out);
-      border: 1px solid transparent;
-      text-decoration: none;
-      outline: none;
-    }
-
-    .drift-btn--primary {
-      background: var(--accent-primary);
-      color: var(--bg-deep);
-      border-color: var(--accent-primary);
-      font-weight: 600;
-    }
-
-    .drift-btn--primary:hover {
-      background: transparent;
-      color: var(--accent-primary);
-      box-shadow: 0 0 15px rgba(var(--accent-primary-rgb), 0.35);
-    }
-    
-    .drift-btn--primary:focus-visible {
-      box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.4);
-    }
-
-    .drift-btn--secondary {
-      background: rgba(var(--accent-primary-rgb), 0.03);
-      color: var(--accent-primary);
-      border-color: rgba(var(--accent-primary-rgb), 0.25);
-    }
-
-    .drift-btn--secondary:hover {
-      border-color: var(--accent-primary);
-      background: rgba(var(--accent-primary-rgb), 0.08);
-      box-shadow: 0 0 12px rgba(var(--accent-primary-rgb), 0.15);
-    }
-
-    .drift-btn--ghost {
-      background: transparent;
-      color: var(--ink-secondary);
-    }
-
-    .drift-btn--ghost:hover {
-      color: var(--ink);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    /* ── Inputs & Forms ── */
-    .drift-input {
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      padding: 0.625rem 0.875rem;
-      font-family: var(--font-sans);
-      font-size: 0.875rem;
-      color: var(--ink);
-      transition: border-color 0.15s ease;
-      width: 100%;
-    }
-    .drift-input::placeholder {
-      color: var(--ink-muted);
-    }
-    .drift-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
-    }
-
-    /* ── Cards & Panels ── */
-    .drift-card {
-      background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 8px;
-      padding: 2rem;
-      transition: border-color var(--duration-base) var(--ease-out), 
-                  transform var(--duration-base) var(--ease-out),
-                  box-shadow var(--duration-base) var(--ease-out);
-    }
-
-    .drift-card:hover {
-      border-color: rgba(var(--accent-primary-rgb), 0.2);
-      transform: translateY(-3px);
-    }
-
-    .drift-card--glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-    }
-
-    .drift-card--interactive {
-      cursor: pointer;
-    }
-
-    .drift-card--interactive:hover {
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 25px rgba(var(--accent-primary-rgb), 0.08);
-    }
-
-    /* ── HUD Frames & Brackets ── */
-    .drift-hud-frame {
-      position: relative;
-      border: 1px solid rgba(var(--accent-primary-rgb), 0.1);
-      background: rgba(11, 11, 18, 0.4);
-      padding: 2rem;
-    }
-
-    .drift-hud-frame::before,
-    .drift-hud-frame::after {
-      content: '';
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border-color: var(--accent-primary);
-      border-style: solid;
-      pointer-events: none;
-    }
-
-    .drift-hud-frame::before {
-      top: -1px;
-      left: -1px;
-      border-width: 2px 0 0 2px;
-    }
-
-    .drift-hud-frame::after {
-      bottom: -1px;
-      right: -1px;
-      border-width: 0 2px 2px 0;
-    }
-
-    .drift-hud-readout {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-
-    /* ── Scroll Reveal ── */
-    .reveal-on-scroll {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    }
-
-    .reveal-on-scroll.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Scroll-to-Top Button ── */
-    .scroll-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      color: var(--accent-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transform: scale(0.8) translateY(10px);
-      pointer-events: none;
-      z-index: 99;
-      transition: all var(--duration-base) var(--ease-out);
-    }
-
-    .scroll-top.visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      pointer-events: auto;
-    }
-
-    .scroll-top:hover {
-      border-color: var(--accent-primary);
-      background: rgba(var(--accent-primary-rgb), 0.1);
-      box-shadow: 0 0 15px rgba(var(--accent-primary-rgb), 0.2);
-    }
-
-    /* ── Hide sections for search filtering ── */
-    .section-hidden {
-      display: none !important;
-    }
-
-    /* ── Hero Section (Step 3) ── */
-    .hero-section {
-      min-height: calc(85vh - var(--header-height));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      padding: 4rem 0 2rem;
-    }
-
-    .hero-mesh {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.12;
-      background-image: 
-        linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
-      background-size: 40px 40px;
-      background-position: center top;
-      transform: perspective(600px) rotateX(60deg) translateY(-80px) translateZ(0);
-      transform-origin: top center;
-      animation: grid-scroll 24s linear infinite;
-    }
-
-    @keyframes grid-scroll {
-      from { background-position: center 0; }
-      to { background-position: center 960px; }
-    }
-
-    .hero-glow {
-      position: absolute;
-      top: -20%;
-      left: 50%;
-      width: 600px;
-      height: 600px;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(34, 211, 238, 0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .hero-hud-frame {
-      max-width: 800px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-      padding: 3rem 2rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .hero-tagline {
-      font-size: clamp(2.25rem, 5vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--ink) 30%, var(--accent-primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.1;
-    }
-
-    .hero-subhead {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: var(--ink-secondary);
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-    }
-
-    .hero-form {
-      display: flex;
-      width: 100%;
-      max-width: 500px;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-      z-index: 2;
-    }
-
-    .hero-form .drift-input {
-      font-family: var(--font-mono);
-      background: rgba(17, 18, 21, 0.8);
-      color: var(--ink);
-    }
-
-    .hero-form .drift-btn {
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .hero-subtext {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-      font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-    }
-
-    .hero-scroll-indicator {
-      margin-top: 3rem;
-      font-family: var(--font-mono);
-      color: var(--accent-primary);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      opacity: 0.7;
-      text-decoration: none;
-      transition: opacity var(--duration-fast) var(--ease-out);
-    }
-
-    .hero-scroll-indicator:hover {
-      opacity: 1;
-    }
-
-    .terminal-cursor {
-      display: inline-block;
-      width: 7px;
-      height: 1.1em;
-      background: var(--accent-primary);
-      animation: cursor-blink 1s step-end infinite;
-      vertical-align: text-bottom;
-    }
-
-    @keyframes cursor-blink {
-      50% { opacity: 0; }
-    }
-
-    /* ── Problem Section / Why Arche (Step 4) ── */
-    .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .section-tag {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
-
-    .section-subtitle {
-      font-size: 1.0625rem;
-      color: var(--ink-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .card-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .why-card {
-      position: relative;
-    }
-
-    .why-icon {
-      color: var(--accent-primary);
-      margin-bottom: 1.5rem;
-      display: inline-block;
-      transition: transform var(--duration-base) var(--ease-spring);
-    }
-
-    .why-card:hover .why-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-
-    .why-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-    }
-
-    .why-desc {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      line-height: 1.6;
-    }
-
-    /* ── How It Works Section (Step 5) ── */
-    .flow-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 3rem;
-      position: relative;
-      margin-bottom: 4rem;
-    }
-
-    .flow-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .flow-number-badge {
-      font-family: var(--font-mono);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(var(--accent-primary-rgb), 0.1);
-      border: 1px solid var(--accent-primary);
-      color: var(--accent-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 10px rgba(var(--accent-primary-rgb), 0.15);
-    }
-
-    .flow-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-    }
-
-    .flow-desc {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      max-width: 280px;
-      line-height: 1.6;
-    }
-
-    .arch-panel {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .arch-svg-container {
-      width: 100%;
-      overflow-x: auto;
-    }
-    
-    .arch-svg {
-      min-width: 700px;
-      display: block;
-    }
-    
-    .arch-node {
-      transition: transform var(--duration-base) var(--ease-spring);
-    }
-    
-    .arch-node:hover {
-      filter: brightness(1.3);
-      stroke: var(--accent-primary);
-      stroke-width: 2;
-    }
-
-    /* Connecting lines between steps (desktop only) */
-    @media (min-width: 769px) {
-      .flow-grid::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        left: 15%;
-        right: 15%;
-        height: 1px;
-        border-top: 1.5px dashed rgba(var(--accent-primary-rgb), 0.25);
-        z-index: 1;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .flow-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-      
-      /* Vertical connecting line */
-      .flow-grid::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        bottom: 20px;
-        left: 50%;
-        width: 1px;
-        border-left: 1.5px dashed rgba(var(--accent-primary-rgb), 0.25);
-        transform: translateX(-50%);
-        z-index: 1;
-      }
-    }
-
-    /* ── Features Grid Section (Step 6) ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .feature-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.25rem;
-    }
-
-    .feature-icon-wrapper {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      background: rgba(var(--accent-primary-rgb), 0.05);
-      border: 1px solid rgba(var(--accent-primary-rgb), 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-primary);
-    }
-
-    .feature-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-desc {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      line-height: 1.6;
-      flex-grow: 1;
-      margin-bottom: 1.25rem;
-    }
-
-    .feature-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: auto;
-    }
-
-    .feature-tag {
-      font-family: var(--font-mono);
-      font-size: 0.6875rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: var(--ink-secondary);
-    }
-
-    .feature-tag--highlight {
-      background: rgba(var(--accent-primary-rgb), 0.05);
-      border: 1px solid rgba(var(--accent-primary-rgb), 0.2);
-      color: var(--accent-primary);
-    }
-
-    /* ── Pricing Section (Step 7) ── */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      align-items: stretch;
-      margin-bottom: 2.5rem;
-    }
-
-    .pricing-card {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .pricing-card--highlighted {
-      border-color: var(--accent-primary) !important;
-      box-shadow: 0 0 30px rgba(var(--accent-primary-rgb), 0.12) !important;
-      transform: scale(1.03);
-    }
-
-    @media (max-width: 768px) {
-      .pricing-card--highlighted {
-        transform: scale(1);
-      }
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -12px;
-      right: 1.5rem;
-      background: var(--accent-primary);
-      color: var(--bg-deep);
-      font-family: var(--font-mono);
-      font-size: 0.6875rem;
-      font-weight: 700;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      box-shadow: 0 0 10px rgba(var(--accent-primary-rgb), 0.3);
-    }
-
-    .pricing-tier-name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-
-    .pricing-price {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--ink);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-
-    .pricing-price span {
-      color: var(--accent-primary);
-    }
-
-    .pricing-sub {
-      font-size: 0.8125rem;
-      color: var(--ink-muted);
-      font-family: var(--font-mono);
-      margin-bottom: 2rem;
-    }
-
-    .pricing-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2rem;
-      flex-grow: 1;
-    }
-
-    .pricing-features li {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .pricing-features svg {
-      color: var(--accent-primary);
-      flex-shrink: 0;
-    }
-
-    .pricing-footer-note {
-      text-align: center;
-      font-family: var(--font-mono);
-      color: var(--ink-muted);
-      font-size: 0.8125rem;
-      letter-spacing: 0.03em;
-    }
-
-    /* ── Consulting Section (Step 8) ── */
-    .consulting-banner {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    @media (max-width: 992px) {
-      .consulting-banner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    .consulting-tagline {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-
-    .consulting-tagline span {
-      background: var(--accent-primary);
-      color: var(--bg-deep);
-      padding: 0 0.5rem;
-      border-radius: 4px;
-    }
-
-    .consulting-text {
-      font-size: 1rem;
-      color: var(--ink-secondary);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .consulting-bullets {
-      list-style: none;
-      padding: 0;
-      margin: 0 1.5rem 0 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 480px) {
-      .consulting-bullets {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .consulting-bullets li {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .consulting-bullets svg {
-      color: var(--accent-secondary);
-      flex-shrink: 0;
-    }
-
-    /* Form Styles */
-    .consulting-form-card {
-      background: rgba(17, 18, 21, 0.4);
-      border: 1px solid rgba(var(--accent-primary-rgb), 0.15);
-      border-radius: 8px;
-      padding: 2rem;
-      transition: opacity var(--duration-base) var(--ease-out);
-    }
-
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 480px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Footer Styles */
-    footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-      padding: 4rem 0 2rem;
-      margin-top: 4rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 4rem;
-      margin-bottom: 3rem;
-    }
-
-    @media (max-width: 768px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    .footer-brand {
-      margin-bottom: 1rem;
-    }
-
-    .footer-desc {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      line-height: 1.6;
-      max-width: 320px;
-    }
-
-    .footer-heading {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.25rem;
-    }
-
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-links a {
-      font-size: 0.875rem;
-      color: var(--ink-secondary);
-      text-decoration: none;
-      transition: color var(--duration-fast) var(--ease-out);
-    }
-
-    .footer-links a:hover {
-      color: var(--accent-primary);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-copyright {
-      font-size: 0.75rem;
-      color: var(--ink-muted);
-      font-family: var(--font-mono);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .footer-social a {
-      color: var(--ink-muted);
-      transition: color var(--duration-fast) var(--ease-out);
-    }
-
-    .footer-social a:hover {
-      color: var(--accent-primary);
-    }
-
+      color-scheme: light;
+      --bg-deep:#eceef7; --bg-base:#f3f4fb; --bg-alt:#e6e8f4; --panel:#fff; --surface:#f1f2fa; --surface-raised:#fff;
+      --ink:#14151f; --ink-secondary:#4b4e64; --ink-muted:#767a92; --ink-faint:#aeb1c6;
+      --border:rgba(20,21,31,.10); --border-strong:rgba(20,21,31,.18); --border-panel:rgba(20,21,31,.06);
+      --teal:#0e93ad; --green:#0f9b6c; --indigo:#5d6ae8; --rose:#d6418e; --gold:#a9831a; --coral:#c25c3e; --amber:#b97d09; --orange:#d9740f; --blue:#2563eb;
+      --teal-rgb:14,147,173; --green-rgb:15,155,108; --indigo-rgb:93,106,232; --rose-rgb:214,65,142; --gold-rgb:169,131,26; --coral-rgb:194,92,62; --amber-rgb:185,125,9; --orange-rgb:217,116,15; --blue-rgb:37,99,235;
+      --accent-primary:var(--teal); --accent-primary-rgb:var(--teal-rgb); --accent-secondary:var(--green); --accent-tertiary:var(--indigo); --accent-warning:var(--rose);
+      --glass-bg:rgba(255,255,255,.55); --glass-bg-strong:rgba(255,255,255,.72); --glass-border:rgba(20,21,31,.08); --glass-inner:inset 0 1px 0 rgba(255,255,255,.6); --glass-shadow:0 18px 50px rgba(20,21,40,.12);
+      --grain-opacity:.02; --shadow-lg:0 24px 60px rgba(20,21,40,.14); --glow-teal:0 0 0 3px rgba(var(--teal-rgb),.12); --glow-indigo:0 0 0 3px rgba(var(--indigo-rgb),.12); --glow-aurora:0 10px 30px rgba(14,147,173,.18),0 10px 30px rgba(93,106,232,.14);
+      --grad-ambient:radial-gradient(40% 50% at 22% 24%,rgba(var(--aurora-cyan-rgb),.22),transparent 68%),radial-gradient(42% 48% at 78% 28%,rgba(var(--aurora-indigo-rgb),.20),transparent 68%),radial-gradient(46% 55% at 54% 90%,rgba(var(--aurora-rose-rgb),.18),transparent 70%);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg-deep);color:var(--ink);font-family:var(--font-sans);line-height:1.55;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .page{position:relative;min-height:100vh;background:linear-gradient(180deg,var(--bg-deep),var(--bg-base) 56%,var(--bg-alt));}
+    .aurora{position:fixed;inset:-15%;z-index:0;background:var(--grad-ambient);filter:blur(46px);pointer-events:none}
+    .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:var(--grain-opacity);background-image:repeating-conic-gradient(transparent 0%,rgba(255,255,255,.4) 25%,transparent 50%);background-size:3px 3px}
+    .wrap{position:relative;z-index:2;width:min(var(--content-max),calc(100% - 48px));margin:0 auto}
+    .skip{position:absolute;left:-9999px;top:12px;background:var(--panel);color:var(--ink);padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-md);z-index:99}
+    .skip:focus{left:12px}
+    .nav{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));background:rgba(8,8,15,.58)}
+    [data-theme="light"] .nav{background:rgba(255,255,255,.62)}
+    .nav__inner{width:min(var(--content-max),calc(100% - 48px));margin:0 auto;display:flex;align-items:center;gap:24px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;min-width:172px}
+    .brand img{width:154px;height:auto;display:block}
+    .nav__links{display:flex;align-items:center;gap:22px;margin-left:8px}
+    .nav__links a{font-size:13px;color:var(--ink-secondary)}
+    .nav__links a:hover{color:var(--ink)}
+    .nav__actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;border:1px solid transparent;padding:.68rem 1.1rem;font-size:14px;font-weight:600;font-family:var(--font-sans);cursor:pointer;white-space:nowrap;transition:transform .15s var(--ease-out),filter .15s var(--ease-out),border-color .15s var(--ease-out),box-shadow .15s var(--ease-out);}
+    .button:active{transform:translateY(1px)}
+    .button--primary{background:var(--grad-aurora);color:#06121a;box-shadow:var(--glow-aurora)}
+    .button--primary:hover{filter:brightness(1.07);transform:translateY(-1px)}
+    .button--glass{background:var(--glass-bg);border-color:var(--glass-border);color:var(--ink);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+    .button--glass:hover{border-color:rgba(var(--accent-primary-rgb),.42)}
+    .button--ghost{background:transparent;border-color:var(--border);color:var(--ink-secondary);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+    .hero{position:relative;min-height:calc(100vh - 70px);display:grid;grid-template-columns:1.02fr .98fr;gap:42px;align-items:center;padding:78px 0 64px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-primary)}
+    .eyebrow::before{content:'◆';font-size:10px;color:var(--orange)}
+    h1{font-family:var(--font-display);font-size:clamp(46px,7vw,84px);line-height:.96;letter-spacing:-.045em;font-weight:650;margin:20px 0 0}
+    h1 em,.grad{font-family:var(--font-serif);font-style:italic;font-weight:400;background:var(--grad-aurora);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{max-width:680px;margin:24px 0 0;color:var(--ink-secondary);font-size:clamp(17px,1.6vw,21px);line-height:1.62}
+    .lead strong{color:var(--ink);font-weight:600}
+    .hero__actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .readouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px;max-width:640px}
+    .readout{padding:16px;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-inner);border-radius:14px;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+    .readout .v{font-family:var(--font-mono);font-size:20px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+    .readout .v.c{color:var(--accent-primary)} .readout .v.i{color:var(--accent-tertiary)} .readout .v.o{color:var(--orange)}
+    .readout .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-top:6px}
+    .heroPanel{position:relative;border-radius:24px;padding:22px;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-inner),var(--glass-shadow);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));overflow:hidden}
+    .heroPanel::before{content:'';position:absolute;inset:-20%;background:var(--grad-ambient);filter:blur(32px);opacity:.74;z-index:-1}
+    .runtimeTop{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+    .runtimeBrand{display:flex;align-items:center;gap:12px}
+    .runtimeBrand img{width:44px;height:44px;filter:drop-shadow(0 0 20px rgba(var(--accent-primary-rgb),.25))}
+    .runtimeTitle strong{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+    .runtimeTitle span{display:block;margin-top:3px;color:var(--ink-muted);font-size:13px}
+    .status{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 10px;background:rgba(var(--green-rgb),.08);border:1px solid rgba(var(--green-rgb),.24);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+    .status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(var(--green-rgb),.7)}
+    .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+    .node{position:relative;padding:14px 12px;min-height:102px;border-radius:14px;background:rgba(0,0,0,.16);border:1px solid var(--border)}
+    [data-theme="light"] .node{background:rgba(255,255,255,.36)}
+    .node:not(:last-child)::after{content:'→';position:absolute;right:-11px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:14px;color:var(--accent-primary);z-index:2}
+    .node .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-primary)}
+    .node h3{font-size:15px;margin:8px 0 4px}
+    .node p{font-size:12.5px;line-height:1.4;color:var(--ink-secondary);margin:0}
+    .contract{background:rgba(6,6,13,.66);border:1px solid var(--border-strong);border-radius:16px;padding:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);overflow:auto}
+    [data-theme="light"] .contract{background:rgba(255,255,255,.58)}
+    .contract pre{margin:0;font-family:var(--font-mono);font-size:12.5px;line-height:1.72;color:var(--ink-secondary)}
+    .cyan{color:var(--accent-primary)} .indigo{color:var(--accent-tertiary)} .rose{color:var(--rose)} .orange{color:var(--orange)} .mint{color:var(--aurora-mint)}
+    section{padding:76px 0}
+    .sectionHead{max-width:760px;margin-bottom:34px}
+    .sectionHead .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-primary)}
+    .sectionHead h2{font-family:var(--font-display);font-size:clamp(34px,4.4vw,56px);line-height:1.02;letter-spacing:-.035em;font-weight:650;margin:12px 0 0}
+    .sectionHead p{margin:16px 0 0;color:var(--ink-secondary);font-size:17px;line-height:1.62}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{position:relative;border-radius:18px;padding:22px;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-inner);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));overflow:hidden;transition:transform .2s var(--ease-out),border-color .2s var(--ease-out),box-shadow .2s var(--ease-out)}
+    .card:hover{transform:translateY(-3px);border-color:rgba(var(--accent-primary-rgb),.32);box-shadow:var(--glass-inner),0 14px 44px rgba(0,0,0,.18)}
+    .card .num,.hudLabel{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+    .card h3{font-size:19px;letter-spacing:-.015em;margin:10px 0 8px}
+    .card p{color:var(--ink-secondary);font-size:14px;line-height:1.58;margin:0}
+    .cardMark{width:36px;height:36px;display:block;margin-bottom:12px;filter:drop-shadow(0 0 16px rgba(var(--accent-primary-rgb),.22))}
+    .split{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px;align-items:start}
+    .terminal{position:relative;border-radius:18px;padding:22px;background:rgba(6,6,13,.62);border:1px solid var(--glass-border);box-shadow:var(--glass-inner);overflow:hidden}
+    [data-theme="light"] .terminal{background:rgba(255,255,255,.54)}
+    .terminal::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,var(--scanline-opacity)) 1px,transparent 1px);background-size:100% 4px;pointer-events:none}
+    .row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+    .row:last-child{border-bottom:0}
+    .row .bullet{width:10px;height:10px;margin-top:7px;border-radius:50%;background:var(--accent-primary);box-shadow:var(--glow-teal);flex:0 0 auto}
+    .row strong{display:block;font-size:15px}
+    .row span{display:block;margin-top:3px;color:var(--ink-secondary);font-size:13.5px}
+    .moduleGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .module{min-height:148px}
+    .module .tag{display:inline-flex;border-radius:999px;border:1px solid rgba(var(--accent-primary-rgb),.24);padding:5px 8px;font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-primary);background:rgba(var(--accent-primary-rgb),.08)}
+    .price{display:flex;flex-direction:column;min-height:260px}
+    .price .tier{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-primary)}
+    .price h3{font-family:var(--font-display);font-size:26px;margin:10px 0 0}
+    .price ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;color:var(--ink-secondary);font-size:14px}
+    .price li::before{content:'◆';font-size:8px;color:var(--accent-primary);margin-right:8px}
+    .price .button{margin-top:auto;align-self:flex-start}
+    .band{position:relative;border-radius:24px;padding:52px;text-align:center;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-inner),var(--glass-shadow);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur));overflow:hidden}
+    .band::before{content:'';position:absolute;inset:-25%;background:var(--grad-ambient);filter:blur(40px);opacity:.9}
+    .band > *{position:relative}
+    .band h2{font-family:var(--font-display);font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.04em;font-weight:650;margin:0}
+    .band p{max-width:680px;margin:16px auto 26px;color:var(--ink-secondary);font-size:17px}
+    .earlyAccess{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;width:min(100%,540px);margin:0 auto;padding:10px;background:rgba(255,255,255,.07);border:1px solid var(--glass-border);border-radius:16px;box-shadow:var(--glass-inner);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+    [data-theme="light"] .earlyAccess{background:rgba(255,255,255,.58)}
+    .earlyAccess input{min-width:0;width:100%;border:1px solid var(--border);border-radius:10px;background:rgba(6,6,13,.42);color:var(--ink);font:500 15px var(--font-sans);padding:12px 14px;outline:none}
+    [data-theme="light"] .earlyAccess input{background:rgba(255,255,255,.62)}
+    .earlyAccess input::placeholder{color:var(--ink-muted)}
+    .earlyAccess input:focus{border-color:rgba(var(--accent-primary-rgb),.56);box-shadow:0 0 0 3px rgba(var(--accent-primary-rgb),.13)}
+    .earlyAccess .button{border:0}
+    .formStatus{min-height:20px;margin:12px auto 0;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+    .formStatus.is-success{color:var(--green)}
+    .formStatus.is-error{color:var(--rose)}
+    footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38px 0;color:var(--ink-muted)}
+    .footerInner{width:min(var(--content-max),calc(100% - 48px));margin:0 auto;display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+    .footerInner img{width:154px}
+    .footTag{margin-top:12px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+    .footCol h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 12px}
+    .footCol a{display:block;color:var(--ink-secondary);font-size:13px;margin:8px 0}
+    @media(max-width:980px){.nav__links{display:none}.hero{grid-template-columns:1fr;min-height:auto;padding-top:58px}.grid4,.moduleGrid{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}.footerInner{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.wrap,.nav__inner,.footerInner{width:min(100% - 30px,var(--content-max))}.nav__actions .button--primary{display:none}.brand img{width:132px}.readouts,.ladder,.grid4,.grid3,.grid2,.moduleGrid{grid-template-columns:1fr}.node:not(:last-child)::after{right:50%;top:auto;bottom:-14px;transform:translateX(50%) rotate(90deg)}.heroPanel{padding:16px}.band{padding:32px 20px}.earlyAccess{grid-template-columns:1fr}.earlyAccess .button{width:100%}.footerInner{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="page">
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-  <!-- Sticky Scroll-to-Top -->
-  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top" title="Scroll to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </button>
-
-  <div class="app-shell">
-    
-    <!-- NAVIGATION CONTAINER (Step 2) -->
-    <header>
-      <a href="#" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
-          <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
-          <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
-        </svg>
-        arche
-      </a>
-      
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
-
-      <nav class="nav-menu" id="navMenu">
-        <a href="#hero" class="active">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/><circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/><circle cx="12" cy="14" r="1.5" fill="#22d3ee"/></svg>
-          Home
-        </a>
-        <a href="chat-deck-landing.html">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#818cf8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#818cf8"/><circle cx="8" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/><circle cx="12" cy="14" r="1.5" fill="#818cf8"/><circle cx="16" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/></svg>
-          Chat Deck
-        </a>
-        <a href="workbench.html">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/><circle cx="12" cy="14" r="1.5" fill="#22d3ee"/></svg>
-          Workbench
-        </a>
-        <a href="control-plane.html">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 14 L20.5 14" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#10b981"/><circle cx="12" cy="14" r="2.5" stroke="#10b981" stroke-width="0.75" fill="none" opacity="0.3"/><circle cx="12" cy="14" r="1.2" fill="#10b981"/></svg>
-          Control Plane
-        </a>
-        <a href="/docs/">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M3.5 17 L20.5 17" stroke="#fbbf24" stroke-width="1" stroke-linecap="round" opacity="0.4"/><path d="M3.5 14 L20.5 14" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="3.5" r="1.5" fill="#fbbf24"/><circle cx="12" cy="14" r="1.5" fill="#fbbf24"/><rect x="9" y="18" width="6" height="4" rx="1" stroke="#fbbf24" stroke-width="0.75" fill="none" opacity="0.5"/></svg>
-          Docs
-        </a>
-        <a href="#early-access" class="drift-btn drift-btn--primary drift-btn--sm nav-cta-mobile" style="display: none;">Get Early Access</a>
-      </nav>
-
-      <div class="nav-right">
-        <a href="#early-access" class="drift-btn drift-btn--primary drift-btn--sm">Get Early Access</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIcon">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
+    <header class="nav">
+      <div class="nav__inner">
+        <a class="brand" href="#" aria-label="AgentArche home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMzIgNDgiIHdpZHRoPSIyMzIiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmbCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzMzNDA1ZiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzFjMjQzOCI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZtIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWYyNzQwIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTIxODI5Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZmQiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNjFkMzAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYjBmMWIiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjb3JlIiB4MT0iMCIgeTE9IjEiIHgyPSIwIiB5Mj0iMCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzRlMGYwIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjQ1IiBzdG9wLWNvbG9yPSIjYTVmM2ZjIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjYyIiBzdG9wLWNvbG9yPSIjZmRlNjhhIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmI5MjNjIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMiAwKSI+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNCAyNC41KSBzY2FsZSgxIDAuODYpIHRyYW5zbGF0ZSgtMjQgLTI0KSI+CiAgICA8cGF0aCBkPSJNOSA5IEgzOSBWMzkgSDExIFYxMyBIMzUgVjM1IEgxNSBWMTcgSDMxIFYzMSBIMTkgVjIxIEgyNyBWMjUgSDIzLjUiIHN0cm9rZT0iIzM0ZTBmMCIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC45MiI+PC9wYXRoPgogIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0IDI0KSBzY2FsZSgwLjcpIHRyYW5zbGF0ZSgtMjQgLTI1KSI+CiAgICA8cG9seWdvbiBwb2ludHM9IjIwLDQgMjgsNCAzMCw3IDE4LDciIGZpbGw9InVybCgjZmwpIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjE4LDcgMjQsNyAyNCw0NiAxNCwzMyAxNCwxMiIgZmlsbD0idXJsKCNmbSkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPHBvbHlnb24gcG9pbnRzPSIyNCw3IDMwLDcgMzQsMTIgMzQsMzMgMjQsNDYiIGZpbGw9InVybCgjZmQpIiBzdHJva2U9InJnYmEoMTI0LDE0MCwyNDgsMC40NSkiIHN0cm9rZS13aWR0aD0iMC41NzEiPjwvcG9seWdvbj4KICAgIDxsaW5lIHgxPSIyNCIgeTE9IjciIHgyPSIyNCIgeTI9IjQ2IiBzdHJva2U9InJnYmEoMTY1LDI0MywyNTIsMC42KSIgc3Ryb2tlLXdpZHRoPSIwLjcxNCIgb3BhY2l0eT0iMC41Ij48L2xpbmU+CiAgICA8cmVjdCB4PSIyMS40IiB5PSIxMyIgd2lkdGg9IjUuMiIgaGVpZ2h0PSIyNiIgcng9IjIuNiIgZmlsbD0iIzBhMGUxOCI+PC9yZWN0PgogICAgPHJlY3QgeD0iMjIuNCIgeT0iMTEiIHdpZHRoPSIzLjIiIGhlaWdodD0iMjgiIHJ4PSIxLjYiIGZpbGw9InVybCgjY29yZSkiPjwvcmVjdD4KICA8L2c+CiAgPC9nPgogIDx0ZXh0IHg9IjU2IiB5PSIyNyIgZm9udC1mYW1pbHk9IiYjMzk7SW50ZXIgVGlnaHQmIzM5OyxJbnRlcixzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMS4xIiBmaWxsPSIjZjNmNGZiIj5BUkNIRTwvdGV4dD4KICA8dGV4dCB4PSI1NyIgeT0iMzkiIGZvbnQtZmFtaWx5PSImIzM5O0pldEJyYWlucyBNb25vJiMzOTssbW9ub3NwYWNlIiBmb250LXNpemU9IjYuNSIgZm9udC13ZWlnaHQ9IjUwMCIgbGV0dGVyLXNwYWNpbmc9IjIuNCIgZmlsbD0iIzcxNzQ4YyI+VFVSTiBQSVBFTElORVMgSU5UTyBQUk9GSVQ8L3RleHQ+Cjwvc3ZnPg==" alt="Arche" /></a>
+        <nav class="nav__links" aria-label="Primary navigation">
+          <a href="#shift">The shift</a>
+          <a href="#contracts">Loop contracts</a>
+          <a href="#platform">Platform</a>
+          <a href="#governance">Governance</a>
+          <a href="#use-cases">Use cases</a>
+        </nav>
+        <div class="nav__actions">
+          <button class="button button--ghost" type="button" id="themeToggle">THEME: DARK</button>
+          <a class="button button--primary" href="#pricing">Launch console</a>
+        </div>
       </div>
     </header>
-    
-    <main>
-      
-      <!-- HERO CONTAINER (Step 3) -->
-      <section id="hero" class="hero-section" data-keywords="hero, tagline, email, early access, prompts, pipelines, workflows, orchestration">
-        <div class="hero-mesh"></div>
-        <div class="hero-glow"></div>
-        
-        <div class="drift-card drift-card--glass drift-hud-frame hero-hud-frame">
-          <div class="drift-hud-readout" style="margin-bottom: 1rem;">System status: ready.sys</div>
-          <h1 class="hero-tagline">Turn prompts into pipelines</h1>
-          <p class="hero-subhead">
-            The open-source orchestration layer for LLM workflows. Build agents from the ground up. Run where data lives.
-          </p>
-          
-          <form class="hero-form" id="earlyAccessForm" action="#">
-            <input type="email" placeholder="your@email.com" required class="drift-input" id="heroEmail" aria-label="Email address">
-            <button type="submit" class="drift-btn drift-btn--primary">
-              Get Early Access
-            </button>
-          </form>
-          
-          <div class="hero-subtext">
-            No credit card &middot; Ships this month
-          </div>
-        </div>
-        
-        <a href="#why" class="hero-scroll-indicator" aria-label="Scroll to next section">
-          <span>> scroll_down_</span><span class="terminal-cursor"></span>
-        </a>
-      </section>
-      
-      <!-- WHY ARCHE / PROBLEM SECTION (Step 4) -->
-      <section id="why" class="reveal-on-scroll" data-keywords="why, security, vendor lock, infrastructure, stack, local, data, open source">
-        <div class="section-header">
-          <span class="section-tag">System Properties</span>
-          <h2 class="section-title">Why Arche?</h2>
-          <p class="section-subtitle">
-            Most agent platforms lock you in and send your data to external servers. Arche is built for complete control, absolute security, and zero vendor lock-in.
-          </p>
-        </div>
-        
-        <div class="card-grid-3">
-          <!-- Card 1: Security-First -->
-          <div class="drift-card drift-card--glass why-card">
-            <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-01]</div>
-            <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#f472b6" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                <path d="M3.5 14 L20.5 14" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M12 3.5 L12 14" stroke="#f472b6" stroke-width="0.75" opacity="0.3"/>
-                <circle cx="12" cy="3.5" r="1.5" fill="#f472b6"/>
-                <circle cx="12" cy="14" r="1.5" fill="#f472b6"/>
-                <path d="M8 18 L12 22 L16 18" stroke="#f472b6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
-              </svg>
-            </div>
-            <h3 class="why-title">Security-First</h3>
-            <p class="why-desc">
-              Run where your data lives. Your pipeline runs inside your secure cloud or on-premise infrastructure. No leakage, no external processing.
-            </p>
-          </div>
-          
-          <!-- Card 2: No Vendor Lock -->
-          <div class="drift-card drift-card--glass why-card">
-            <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-02]</div>
-            <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                <path d="M3.5 14 L20.5 14" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="12" cy="3.5" r="1.5" fill="#34d399"/>
-                <circle cx="12" cy="14" r="1.5" fill="#34d399"/>
-                <path d="M12 14 L8 20 M12 14 L16 20" stroke="#34d399" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-              </svg>
-            </div>
-            <h3 class="why-title">No Vendor Lock</h3>
-            <p class="why-desc">
-              Our stack is completely open-source. Build pipelines that belong to you, without recurring fees or dependencies on proprietary platforms.
-            </p>
-          </div>
-          
-          <!-- Card 3: Your Stack -->
-          <div class="drift-card drift-card--glass why-card">
-            <div class="drift-hud-readout" style="position: absolute; top: 1rem; right: 1rem; opacity: 0.5;">[AF-03]</div>
-            <div class="why-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fb923c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                <path d="M3.5 14 L20.5 14" stroke="#fb923c" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="12" cy="3.5" r="1.5" fill="#fb923c"/>
-                <circle cx="12" cy="14" r="1.5" fill="#fb923c"/>
-                <path d="M12 14 L9 18 M12 14 L15 18" stroke="#fb923c" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-                <polygon points="12,19 11,17 13,17" fill="#fb923c" opacity="0.4"/>
-              </svg>
-            </div>
-            <h3 class="why-title">Your Stack</h3>
-            <p class="why-desc">
-              Bring your own infrastructure, custom tools, and models. Connect local LLMs, commercial APIs, or open models without friction.
-            </p>
-          </div>
-        </div>
-      </section>
-      
-      <!-- HOW IT WORKS SECTION (Step 5) -->
-      <section id="how" class="reveal-on-scroll" data-keywords="how, connect, configure, deploy, flow, pipeline, architecture, setup">
-        <div class="section-header">
-          <span class="section-tag">Deployment Pipeline</span>
-          <h2 class="section-title">How It Works</h2>
-          <p class="section-subtitle">
-            Go from raw prompts to robust autonomous LLM workflows in three simple steps.
-          </p>
-        </div>
-        
-        <div class="flow-grid">
-          <!-- Step 1: Connect -->
-          <div class="flow-step">
-            <div class="flow-number-badge">01</div>
-            <h3 class="flow-title">Connect</h3>
-            <p class="flow-desc">
-              Link your local models, vector stores, API keys, and custom developer tools.
-            </p>
-          </div>
-          
-          <!-- Step 2: Configure -->
-          <div class="flow-step">
-            <div class="flow-number-badge">02</div>
-            <h3 class="flow-title">Configure</h3>
-            <p class="flow-desc">
-              Define routing rules, agent profiles, session states, and tool bindings in clean YAML.
-            </p>
-          </div>
-          
-          <!-- Step 3: Deploy -->
-          <div class="flow-step">
-            <div class="flow-number-badge">03</div>
-            <h3 class="flow-title">Deploy</h3>
-            <p class="flow-desc">
-              Spin up your agent workspace, connect it to your app, or run it headless as a CLI daemon.
-            </p>
-          </div>
-        </div>
 
-        <!-- Architecture Diagram Sub-panel -->
-        <div class="drift-card drift-card--glass arch-panel" style="margin-top: 3rem; padding: 2.5rem 2rem;">
-          <div class="drift-hud-readout" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
-            <span>Architecture Specification v2.0 // Local Security Boundary</span>
-            <span class="status-badge" style="color: var(--accent-secondary);">
-              <span class="status-dot"></span> Online
-            </span>
+    <main id="main" class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">Loop engineering :: governed autonomous work</div>
+          <h1 id="hero-title">Build governed AI <em>loops.</em></h1>
+          <p class="lead"><strong>AgentArche turns prompts into pipelines</strong>, then connects every pipeline to the governance layer it needs to run safely: triggers, scoped tools, memory, verification, approvals, and audit trails.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#contracts">Inspect the loop contract</a>
+            <a class="button button--glass" href="#platform">Map the platform</a>
           </div>
-          
-          <div class="arch-svg-container">
-            <svg class="arch-svg" viewBox="0 0 800 250" width="100%" height="100%">
-              <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="var(--accent-primary)" stroke-width="1.5"/>
-                </marker>
-                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="#34d399" stroke-width="1.5"/>
-                </marker>
-                <marker id="arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 2 L 10 5 L 0 8 z" fill="none" stroke="#818cf8" stroke-width="1.5"/>
-                </marker>
-              </defs>
-              
-              <!-- GRID & BACKGROUND CONNECTIONS -->
-              
-              <!-- 1. Local Security Boundary Box (Security: rgba(136, 19, 55, 0.25), stroke #fb7185) -->
-              <rect x="220" y="20" width="410" height="175" rx="6" fill="rgba(136, 19, 55, 0.08)" stroke="#fb7185" stroke-dasharray="4,4" stroke-width="1.5"/>
-              <text x="235" y="40" fill="#fb7185" font-family="var(--font-mono)" font-size="10" font-weight="600" letter-spacing="0.05em">LOCAL SECURITY BOUNDARY</text>
-              
-              <!-- 2. Connection Paths (Arrows) -->
-              <!-- Frontend to Local Daemon -->
-              <path d="M 170 100 L 250 100" fill="none" stroke="var(--accent-primary)" stroke-width="1.5" marker-end="url(#arrow)"/>
-              
-              <!-- Daemon to Router -->
-              <path d="M 370 85 C 370 65, 410 65, 450 65" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-green)"/>
-              
-              <!-- Daemon to Vector DB -->
-              <path d="M 370 115 C 370 135, 410 135, 450 135" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrow-violet)"/>
-              <path d="M 450 135 C 410 135, 370 135, 370 115" fill="none" stroke="#818cf8" stroke-width="1.5"/>
-              
-              <!-- Router to External APIs -->
-              <path d="M 570 65 C 610 65, 620 100, 680 100" fill="none" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1.5" marker-end="url(#arrow)"/>
-              
-              <!-- COMPONENTS -->
-              
-              <!-- Frontend / Client (rgba(8, 51, 68, 0.4), stroke #22d3ee) -->
-              <g class="arch-node" transform="translate(30, 70)">
-                <rect width="140" height="60" rx="4" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
-                <text x="70" y="28" fill="var(--ink)" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Developer Client</text>
-                <text x="70" y="44" fill="var(--accent-primary)" font-family="var(--font-mono)" font-size="9" text-anchor="middle">CLI / WEB UI</text>
-              </g>
-              
-              <!-- Local Daemon (Backend: rgba(6, 78, 59, 0.4), stroke #34d399) -->
-              <g class="arch-node" transform="translate(250, 70)">
-                <rect width="120" height="60" rx="4" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
-                <text x="60" y="28" fill="var(--ink)" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Agent Daemon</text>
-                <text x="60" y="44" fill="#34d399" font-family="var(--font-mono)" font-size="9" text-anchor="middle">local runtime</text>
-              </g>
-              
-              <!-- Router (Backend: rgba(6, 78, 59, 0.4), stroke #34d399) -->
-              <g class="arch-node" transform="translate(450, 35)">
-                <rect width="120" height="50" rx="4" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
-                <text x="60" y="24" fill="var(--ink)" font-family="var(--font-sans)" font-size="11" font-weight="600" text-anchor="middle">Model Router</text>
-                <text x="60" y="38" fill="#34d399" font-family="var(--font-mono)" font-size="8" text-anchor="middle">MCP support</text>
-              </g>
-              
-              <!-- Local Vector DB (Database: rgba(76, 29, 149, 0.4), stroke #818cf8) -->
-              <g class="arch-node" transform="translate(450, 110)">
-                <rect width="120" height="50" rx="4" fill="rgba(76, 29, 149, 0.4)" stroke="#818cf8" stroke-width="1.5"/>
-                <text x="60" y="24" fill="var(--ink)" font-family="var(--font-sans)" font-size="11" font-weight="600" text-anchor="middle">Vector Cache</text>
-                <text x="60" y="38" fill="#818cf8" font-family="var(--font-mono)" font-size="8" text-anchor="middle">sqlite / local-first</text>
-              </g>
-              
-              <!-- External API (External: rgba(30, 41, 59, 0.5), stroke #94a3b8) -->
-              <g class="arch-node" transform="translate(680, 70)">
-                <rect width="100" height="60" rx="4" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
-                <text x="50" y="28" fill="var(--ink)" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">LLM Provider</text>
-                <text x="50" y="44" fill="#94a3b8" font-family="var(--font-mono)" font-size="9" text-anchor="middle">openrouter / api</text>
-              </g>
-              
-              <!-- Legend outside boundary (lowest Y + 20px) -->
-              <g transform="translate(30, 215)">
-                <!-- Frontend -->
-                <circle cx="5" cy="5" r="4" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1"/>
-                <text x="15" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">Frontend</text>
-                
-                <!-- Backend -->
-                <circle cx="100" cy="5" r="4" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1"/>
-                <text x="110" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">Backend</text>
-                
-                <!-- Database -->
-                <circle cx="190" cy="5" r="4" fill="rgba(76, 29, 149, 0.4)" stroke="#818cf8" stroke-width="1"/>
-                <text x="200" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">Database</text>
-                
-                <!-- External -->
-                <circle cx="280" cy="5" r="4" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1"/>
-                <text x="290" y="8" fill="var(--ink-secondary)" font-family="var(--font-mono)" font-size="9">External</text>
-              </g>
-            </svg>
+          <div class="readouts" aria-label="positioning readouts">
+            <div class="readout"><div class="v c">PROMPT</div><div class="l">starting intent</div></div>
+            <div class="readout"><div class="v i">PIPELINE</div><div class="l">visible workflow</div></div>
+            <div class="readout"><div class="v o">LOOP</div><div class="l">governed runtime</div></div>
+          </div>
+        </div>
+        <aside class="heroPanel" aria-label="AgentArche runtime preview">
+          <div class="runtimeTop">
+            <div class="runtimeBrand">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIj4KPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MDVmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWMyNDM4Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZm0iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjI3NDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjE4MjkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWQzMCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMGYxYiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUiIHgxPSIwIiB5MT0iMSIgeDI9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNGUwZjAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNDUiIHN0b3AtY29sb3I9IiNhNWYzZmMiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjIiIHN0b3AtY29sb3I9IiNmZGU2OGEiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYjkyM2MiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQuNSkgc2NhbGUoMSAwLjg2KSB0cmFuc2xhdGUoLTI0IC0yNCkiPgogICAgPHBhdGggZD0iTTkgOSBIMzkgVjM5IEgxMSBWMTMgSDM1IFYzNSBIMTUgVjE3IEgzMSBWMzEgSDE5IFYyMSBIMjcgVjI1IEgyMy41IiBzdHJva2U9IiMzNGUwZjAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuOTIiPjwvcGF0aD4KICA8L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQpIHNjYWxlKDAuNykgdHJhbnNsYXRlKC0yNCAtMjUpIj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMjAsNCAyOCw0IDMwLDcgMTgsNyIgZmlsbD0idXJsKCNmbCkiPjwvcG9seWdvbj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTgsNyAyNCw3IDI0LDQ2IDE0LDMzIDE0LDEyIiBmaWxsPSJ1cmwoI2ZtKSIgc3Ryb2tlPSJyZ2JhKDEyNCwxNDAsMjQ4LDAuNDUpIiBzdHJva2Utd2lkdGg9IjAuNTcxIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDcgMzAsNyAzNCwxMiAzNCwzMyAyNCw0NiIgZmlsbD0idXJsKCNmZCkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPGxpbmUgeDE9IjI0IiB5MT0iNyIgeDI9IjI0IiB5Mj0iNDYiIHN0cm9rZT0icmdiYSgxNjUsMjQzLDI1MiwwLjYpIiBzdHJva2Utd2lkdGg9IjAuNzE0IiBvcGFjaXR5PSIwLjUiPjwvbGluZT4KICAgIDxyZWN0IHg9IjIxLjQiIHk9IjEzIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjI2IiByeD0iMi42IiBmaWxsPSIjMGEwZTE4Ij48L3JlY3Q+CiAgICA8cmVjdCB4PSIyMi40IiB5PSIxMSIgd2lkdGg9IjMuMiIgaGVpZ2h0PSIyOCIgcng9IjEuNiIgZmlsbD0idXJsKCNjb3JlKSI+PC9yZWN0PgogIDwvZz4KPC9zdmc+" alt="" />
+              <div class="runtimeTitle"><strong>ARCHE RUNTIME</strong><span>Governed loop session · Operator view</span></div>
+            </div>
+            <div class="status">verified</div>
+          </div>
+          <div class="ladder" aria-label="prompt to governance ladder">
+            <div class="node"><div class="k">01</div><h3>Prompt</h3><p>User intent or business event enters the system.</p></div>
+            <div class="node"><div class="k">02</div><h3>Pipeline</h3><p>Work becomes structured, reusable, and inspectable.</p></div>
+            <div class="node"><div class="k">03</div><h3>Loop</h3><p>The runtime observes, acts, verifies, and repeats.</p></div>
+            <div class="node"><div class="k">04</div><h3>Guard</h3><p>Policies gate tools, approvals, memory, and audit.</p></div>
+          </div>
+          <div class="contract">
+<pre><span class="cyan">loop_name</span>: <span class="indigo">"PR Repair Loop"</span>
+<span class="cyan">trigger</span>: <span class="indigo">"CI failure on pull request"</span>
+<span class="cyan">goal</span>: <span class="indigo">"Minimal patch with tests passing"</span>
+<span class="cyan">workers</span>: [planner, executor, verifier, governance]
+<span class="cyan">tools</span>:
+  allowed: [repo_read, worktree_create, run_tests, comment]
+  blocked: [merge_main, modify_secrets, deploy_prod]
+<span class="cyan">verification</span>: [targeted_tests_pass, diff_review_pass]
+<span class="cyan">human_gate</span>: <span class="orange">required_before_merge</span>
+<span class="cyan">audit</span>: [trigger, tools_used, files_changed, approvals]</pre>
+          </div>
+        </aside>
+      </section>
+
+      <section id="shift" aria-labelledby="shift-title">
+        <div class="sectionHead">
+          <div class="label">Category shift</div>
+          <h2 id="shift-title">Pipeline is the explainer. Loop is the category.</h2>
+          <p>Prompts explain the starting point. Pipelines explain the user-visible workflow. Loops explain the autonomous operating model. Governance is the reason enterprises can trust it.</p>
+        </div>
+        <div class="grid4">
+          <article class="card"><div class="num">PROMPT</div><h3>Intent packet</h3><p>A request, alert, ticket, scheduled heartbeat, or command from the operator.</p></article>
+          <article class="card"><div class="num">PIPELINE</div><h3>Configured path</h3><p>The visible sequence: connect systems, configure steps, deploy the workflow.</p></article>
+          <article class="card"><div class="num">LOOP</div><h3>Autonomous cycle</h3><p>Trigger, context, action, verification, memory, escalation, and repeat.</p></article>
+          <article class="card"><div class="num">GOVERNANCE</div><h3>Control plane</h3><p>Permissions, approval gates, model routing, run ledger, and evidence packs.</p></article>
+        </div>
+      </section>
+
+      <section id="contracts" aria-labelledby="contracts-title">
+        <div class="sectionHead">
+          <div class="label">Loop contract</div>
+          <h2 id="contracts-title">The prompt becomes durable when it becomes a contract.</h2>
+          <p>The loop contract is the enterprise artifact: it states what starts the work, what done means, what tools can be touched, how the answer is verified, when humans approve, and what gets remembered.</p>
+        </div>
+        <div class="split">
+          <div class="terminal" aria-label="loop contract components">
+            <div class="row"><div class="bullet"></div><div><strong>Trigger + goal</strong><span>Every loop starts with a condition and ends only when a verifiable finish line passes.</span></div></div>
+            <div class="row"><div class="bullet"></div><div><strong>Tools + permissions</strong><span>Tool access is scoped as a risk surface: read, write, execute, approve, and block.</span></div></div>
+            <div class="row"><div class="bullet"></div><div><strong>Workers + isolation</strong><span>Planner, executor, verifier, and governance agents operate inside sandboxes or worktrees.</span></div></div>
+            <div class="row"><div class="bullet"></div><div><strong>Verifier stack</strong><span>Deterministic tests, policy checks, reviewer agents, and human gates compound confidence.</span></div></div>
+            <div class="row"><div class="bullet"></div><div><strong>Memory + audit</strong><span>State persists outside the model. Every run leaves evidence.</span></div></div>
+          </div>
+          <div class="grid2">
+            <article class="card"><img class="cardMark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIj4KPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MDVmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWMyNDM4Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZm0iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjI3NDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjE4MjkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWQzMCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMGYxYiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUiIHgxPSIwIiB5MT0iMSIgeDI9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNGUwZjAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNDUiIHN0b3AtY29sb3I9IiNhNWYzZmMiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjIiIHN0b3AtY29sb3I9IiNmZGU2OGEiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYjkyM2MiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQuNSkgc2NhbGUoMSAwLjg2KSB0cmFuc2xhdGUoLTI0IC0yNCkiPgogICAgPHBhdGggZD0iTTkgOSBIMzkgVjM5IEgxMSBWMTMgSDM1IFYzNSBIMTUgVjE3IEgzMSBWMzEgSDE5IFYyMSBIMjcgVjI1IEgyMy41IiBzdHJva2U9IiMzNGUwZjAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuOTIiPjwvcGF0aD4KICA8L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQpIHNjYWxlKDAuNykgdHJhbnNsYXRlKC0yNCAtMjUpIj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMjAsNCAyOCw0IDMwLDcgMTgsNyIgZmlsbD0idXJsKCNmbCkiPjwvcG9seWdvbj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTgsNyAyNCw3IDI0LDQ2IDE0LDMzIDE0LDEyIiBmaWxsPSJ1cmwoI2ZtKSIgc3Ryb2tlPSJyZ2JhKDEyNCwxNDAsMjQ4LDAuNDUpIiBzdHJva2Utd2lkdGg9IjAuNTcxIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDcgMzAsNyAzNCwxMiAzNCwzMyAyNCw0NiIgZmlsbD0idXJsKCNmZCkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPGxpbmUgeDE9IjI0IiB5MT0iNyIgeDI9IjI0IiB5Mj0iNDYiIHN0cm9rZT0icmdiYSgxNjUsMjQzLDI1MiwwLjYpIiBzdHJva2Utd2lkdGg9IjAuNzE0IiBvcGFjaXR5PSIwLjUiPjwvbGluZT4KICAgIDxyZWN0IHg9IjIxLjQiIHk9IjEzIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjI2IiByeD0iMi42IiBmaWxsPSIjMGEwZTE4Ij48L3JlY3Q+CiAgICA8cmVjdCB4PSIyMi40IiB5PSIxMSIgd2lkdGg9IjMuMiIgaGVpZ2h0PSIyOCIgcng9IjEuNiIgZmlsbD0idXJsKCNjb3JlKSI+PC9yZWN0PgogIDwvZz4KPC9zdmc+" alt="" /><div class="num">ARCHE STUDIO</div><h3>Design the loop</h3><p>Start with a prompt, shape it into a pipeline, then encode the trigger, goal, tools, checks, and escalation path.</p></article>
+            <article class="card"><img class="cardMark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIj4KPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MDVmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWMyNDM4Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZm0iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjI3NDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjE4MjkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWQzMCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMGYxYiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUiIHgxPSIwIiB5MT0iMSIgeDI9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNGUwZjAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNDUiIHN0b3AtY29sb3I9IiNhNWYzZmMiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjIiIHN0b3AtY29sb3I9IiNmZGU2OGEiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYjkyM2MiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQuNSkgc2NhbGUoMSAwLjg2KSB0cmFuc2xhdGUoLTI0IC0yNCkiPgogICAgPHBhdGggZD0iTTkgOSBIMzkgVjM5IEgxMSBWMTMgSDM1IFYzNSBIMTUgVjE3IEgzMSBWMzEgSDE5IFYyMSBIMjcgVjI1IEgyMy41IiBzdHJva2U9IiMzNGUwZjAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuOTIiPjwvcGF0aD4KICA8L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQpIHNjYWxlKDAuNykgdHJhbnNsYXRlKC0yNCAtMjUpIj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMjAsNCAyOCw0IDMwLDcgMTgsNyIgZmlsbD0idXJsKCNmbCkiPjwvcG9seWdvbj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTgsNyAyNCw3IDI0LDQ2IDE0LDMzIDE0LDEyIiBmaWxsPSJ1cmwoI2ZtKSIgc3Ryb2tlPSJyZ2JhKDEyNCwxNDAsMjQ4LDAuNDUpIiBzdHJva2Utd2lkdGg9IjAuNTcxIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDcgMzAsNyAzNCwxMiAzNCwzMyAyNCw0NiIgZmlsbD0idXJsKCNmZCkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPGxpbmUgeDE9IjI0IiB5MT0iNyIgeDI9IjI0IiB5Mj0iNDYiIHN0cm9rZT0icmdiYSgxNjUsMjQzLDI1MiwwLjYpIiBzdHJva2Utd2lkdGg9IjAuNzE0IiBvcGFjaXR5PSIwLjUiPjwvbGluZT4KICAgIDxyZWN0IHg9IjIxLjQiIHk9IjEzIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjI2IiByeD0iMi42IiBmaWxsPSIjMGEwZTE4Ij48L3JlY3Q+CiAgICA8cmVjdCB4PSIyMi40IiB5PSIxMSIgd2lkdGg9IjMuMiIgaGVpZ2h0PSIyOCIgcng9IjEuNiIgZmlsbD0idXJsKCNjb3JlKSI+PC9yZWN0PgogIDwvZz4KPC9zdmc+" alt="" /><div class="num">ARCHE GUARD</div><h3>Attach controls</h3><p>Connect the pipeline to policy: allowed tools, blocked actions, scoped credentials, and approval thresholds.</p></article>
+            <article class="card"><img class="cardMark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIj4KPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MDVmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWMyNDM4Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZm0iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjI3NDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjE4MjkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWQzMCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMGYxYiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUiIHgxPSIwIiB5MT0iMSIgeDI9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNGUwZjAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNDUiIHN0b3AtY29sb3I9IiNhNWYzZmMiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjIiIHN0b3AtY29sb3I9IiNmZGU2OGEiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYjkyM2MiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQuNSkgc2NhbGUoMSAwLjg2KSB0cmFuc2xhdGUoLTI0IC0yNCkiPgogICAgPHBhdGggZD0iTTkgOSBIMzkgVjM5IEgxMSBWMTMgSDM1IFYzNSBIMTUgVjE3IEgzMSBWMzEgSDE5IFYyMSBIMjcgVjI1IEgyMy41IiBzdHJva2U9IiMzNGUwZjAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuOTIiPjwvcGF0aD4KICA8L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQpIHNjYWxlKDAuNykgdHJhbnNsYXRlKC0yNCAtMjUpIj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMjAsNCAyOCw0IDMwLDcgMTgsNyIgZmlsbD0idXJsKCNmbCkiPjwvcG9seWdvbj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTgsNyAyNCw3IDI0LDQ2IDE0LDMzIDE0LDEyIiBmaWxsPSJ1cmwoI2ZtKSIgc3Ryb2tlPSJyZ2JhKDEyNCwxNDAsMjQ4LDAuNDUpIiBzdHJva2Utd2lkdGg9IjAuNTcxIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDcgMzAsNyAzNCwxMiAzNCwzMyAyNCw0NiIgZmlsbD0idXJsKCNmZCkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPGxpbmUgeDE9IjI0IiB5MT0iNyIgeDI9IjI0IiB5Mj0iNDYiIHN0cm9rZT0icmdiYSgxNjUsMjQzLDI1MiwwLjYpIiBzdHJva2Utd2lkdGg9IjAuNzE0IiBvcGFjaXR5PSIwLjUiPjwvbGluZT4KICAgIDxyZWN0IHg9IjIxLjQiIHk9IjEzIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjI2IiByeD0iMi42IiBmaWxsPSIjMGEwZTE4Ij48L3JlY3Q+CiAgICA8cmVjdCB4PSIyMi40IiB5PSIxMSIgd2lkdGg9IjMuMiIgaGVpZ2h0PSIyOCIgcng9IjEuNiIgZmlsbD0idXJsKCNjb3JlKSI+PC9yZWN0PgogIDwvZz4KPC9zdmc+" alt="" /><div class="num">ARCHE RUNTIME</div><h3>Run the loop</h3><p>Dispatch workers, isolate execution, route models, persist state, and retry toward the verified goal.</p></article>
+            <article class="card"><img class="cardMark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIj4KPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzM0MDVmIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWMyNDM4Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZm0iIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjI3NDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjE4MjkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWQzMCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiMGYxYiI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUiIHgxPSIwIiB5MT0iMSIgeDI9IjAiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNGUwZjAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNDUiIHN0b3AtY29sb3I9IiNhNWYzZmMiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjIiIHN0b3AtY29sb3I9IiNmZGU2OGEiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYjkyM2MiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQuNSkgc2NhbGUoMSAwLjg2KSB0cmFuc2xhdGUoLTI0IC0yNCkiPgogICAgPHBhdGggZD0iTTkgOSBIMzkgVjM5IEgxMSBWMTMgSDM1IFYzNSBIMTUgVjE3IEgzMSBWMzEgSDE5IFYyMSBIMjcgVjI1IEgyMy41IiBzdHJva2U9IiMzNGUwZjAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuOTIiPjwvcGF0aD4KICA8L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMjQpIHNjYWxlKDAuNykgdHJhbnNsYXRlKC0yNCAtMjUpIj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMjAsNCAyOCw0IDMwLDcgMTgsNyIgZmlsbD0idXJsKCNmbCkiPjwvcG9seWdvbj4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTgsNyAyNCw3IDI0LDQ2IDE0LDMzIDE0LDEyIiBmaWxsPSJ1cmwoI2ZtKSIgc3Ryb2tlPSJyZ2JhKDEyNCwxNDAsMjQ4LDAuNDUpIiBzdHJva2Utd2lkdGg9IjAuNTcxIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjI0LDcgMzAsNyAzNCwxMiAzNCwzMyAyNCw0NiIgZmlsbD0idXJsKCNmZCkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPGxpbmUgeDE9IjI0IiB5MT0iNyIgeDI9IjI0IiB5Mj0iNDYiIHN0cm9rZT0icmdiYSgxNjUsMjQzLDI1MiwwLjYpIiBzdHJva2Utd2lkdGg9IjAuNzE0IiBvcGFjaXR5PSIwLjUiPjwvbGluZT4KICAgIDxyZWN0IHg9IjIxLjQiIHk9IjEzIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjI2IiByeD0iMi42IiBmaWxsPSIjMGEwZTE4Ij48L3JlY3Q+CiAgICA8cmVjdCB4PSIyMi40IiB5PSIxMSIgd2lkdGg9IjMuMiIgaGVpZ2h0PSIyOCIgcng9IjEuNiIgZmlsbD0idXJsKCNjb3JlKSI+PC9yZWN0PgogIDwvZz4KPC9zdmc+" alt="" /><div class="num">ARCHE AUDIT</div><h3>Prove the run</h3><p>Record the trigger, tools used, data touched, files changed, checks passed, and approvals received.</p></article>
           </div>
         </div>
       </section>
-      
-      <!-- FEATURES SECTION (Step 6) -->
-      <section id="features" class="reveal-on-scroll" data-keywords="features, grid, routing, openrouter, gemini, lm studio, tars, profiles, mcp, vector, telegram, local, offline">
-        <div class="section-header">
-          <span class="section-tag">Feature Matrix</span>
-          <h2 class="section-title">Core Capabilities</h2>
-          <p class="section-subtitle">
-            Arche comes pre-loaded with powerful tools, memory modules, and multi-agent routing engines.
-          </p>
+
+      <section id="platform" aria-labelledby="platform-title">
+        <div class="sectionHead">
+          <div class="label">Platform map</div>
+          <h2 id="platform-title">One control plane. Eight operating surfaces.</h2>
+          <p>The page keeps the simple Connect → Configure → Deploy story, but the system underneath speaks loop engineering: registry, workers, guardrails, runtime, audit, and evidence.</p>
         </div>
-        
-        <div class="features-grid">
-          <!-- Feature 1: Multi-Provider -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#10b981"/>
-                  <circle cx="12" cy="14" r="2.5" stroke="#10b981" stroke-width="0.75" fill="none" opacity="0.3"/>
-                  <circle cx="12" cy="14" r="1.2" fill="#10b981"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-01]</span>
-            </div>
-            <h3 class="feature-title">Multi-Provider Routing</h3>
-            <p class="feature-desc">
-              Seamlessly route tasks to OpenRouter, Gemini, Codex, or local instances via LM Studio. Choose cost, speed, or intelligence dynamically.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">OpenRouter</span>
-              <span class="feature-tag">Gemini</span>
-              <span class="feature-tag">LM Studio</span>
-            </div>
-          </div>
-          
-          <!-- Feature 2: Agent Profiles -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#818cf8" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#818cf8"/>
-                  <circle cx="8" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/>
-                  <circle cx="12" cy="14" r="1.5" fill="#818cf8"/>
-                  <circle cx="16" cy="14" r="1.2" fill="#818cf8" opacity="0.5"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-02]</span>
-            </div>
-            <h3 class="feature-title">Specialized Agent Profiles</h3>
-            <p class="feature-desc">
-              Load pre-configured profiles like TARS, research assistants, or coder agents. Define personality, temperature, system constraints in YAML.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">TARS</span>
-              <span class="feature-tag">Researchers</span>
-              <span class="feature-tag">Coders</span>
-            </div>
-          </div>
-          
-          <!-- Feature 3: Tool System -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 17 L20.5 17" stroke="#fbbf24" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#fbbf24"/>
-                  <circle cx="12" cy="14" r="1.5" fill="#fbbf24"/>
-                  <rect x="9" y="18" width="6" height="4" rx="1" stroke="#fbbf24" stroke-width="0.75" fill="none" opacity="0.5"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-03]</span>
-            </div>
-            <h3 class="feature-title">Protocol Tool Integrations</h3>
-            <p class="feature-desc">
-              Equipped with full Model Context Protocol (MCP) support. Bind external databases, code runtimes, or custom files as execution tools.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">MCP Spec</span>
-              <span class="feature-tag">Local Filesystem</span>
-            </div>
-          </div>
-          
-          <!-- Feature 4: Skills & Memory -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#34d399" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#34d399" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#34d399"/>
-                  <circle cx="12" cy="14" r="1.5" fill="#34d399"/>
-                  <path d="M12 14 L8 20 M12 14 L16 20" stroke="#34d399" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-04]</span>
-            </div>
-            <h3 class="feature-title">Skills & Semantic Memory</h3>
-            <p class="feature-desc">
-              Session-aware vector caches preserve long-term context and let agents learn skills dynamically. Maintain context across multiple conversation boundaries.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">Vector Cache</span>
-              <span class="feature-tag">SQLite Store</span>
-            </div>
-          </div>
-          
-          <!-- Feature 5: Telegram Native -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
-                  <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-05]</span>
-            </div>
-            <h3 class="feature-title">Telegram Bot Integration</h3>
-            <p class="feature-desc">
-              Run your workflows directly from Telegram. Chat with agents, trigger scheduled execution flows, and receive notifications via inline commands.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">Telegram API</span>
-              <span class="feature-tag">Cron Engine</span>
-            </div>
-          </div>
-          
-          <!-- Feature 6: Local-First -->
-          <div class="drift-card drift-card--glass feature-card">
-            <div class="feature-header">
-              <div class="feature-icon-wrapper">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#f472b6" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <path d="M3.5 14 L20.5 14" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
-                  <path d="M12 3.5 L12 14" stroke="#f472b6" stroke-width="0.75" opacity="0.3"/>
-                  <circle cx="12" cy="3.5" r="1.5" fill="#f472b6"/>
-                  <circle cx="12" cy="14" r="1.5" fill="#f472b6"/>
-                  <path d="M8 18 L12 22 L16 18" stroke="#f472b6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
-                </svg>
-              </div>
-              <span class="drift-hud-readout" style="opacity: 0.6;">[FE-06]</span>
-            </div>
-            <h3 class="feature-title">Local-First Isolation</h3>
-            <p class="feature-desc">
-              Keep code execution, configuration registries, and state storage completely local. Perfect for offline tasks and sensitive data projects.
-            </p>
-            <div class="feature-tags">
-              <span class="feature-tag feature-tag--highlight">Local Disk</span>
-              <span class="feature-tag">100% Offline</span>
-            </div>
-          </div>
+        <div class="moduleGrid">
+          <article class="card module"><span class="tag">Studio</span><h3>Prompt to pipeline</h3><p>Builder surface for designing loop contracts and operator-ready workflows.</p></article>
+          <article class="card module"><span class="tag">Flows</span><h3>Triggers and routes</h3><p>Schedules, events, queues, handoffs, retries, and branch logic.</p></article>
+          <article class="card module"><span class="tag">Workers</span><h3>Sub-agent dispatch</h3><p>Planner, executor, verifier, synthesizer, and memory roles.</p></article>
+          <article class="card module"><span class="tag">Guard</span><h3>Policy boundary</h3><p>Tool permissions, scoped credentials, human gates, and hard stops.</p></article>
+          <article class="card module"><span class="tag">Registry</span><h3>Loop catalog</h3><p>Approved contracts, versions, owners, environments, and maturity level.</p></article>
+          <article class="card module"><span class="tag">Runtime</span><h3>Execution engine</h3><p>Model routing, worktree isolation, connectors, retries, and state transitions.</p></article>
+          <article class="card module"><span class="tag">Audit</span><h3>Evidence ledger</h3><p>Trace, transcript, files touched, approvals, outputs, and incident packets.</p></article>
+          <article class="card module"><span class="tag">Engine</span><h3>Verifier stack</h3><p>Tests, schemas, evals, reviewer agents, red-team checks, and scorecards.</p></article>
         </div>
       </section>
-      
-      <!-- PRICING SECTION (Step 7) -->
-      <section id="pricing" class="reveal-on-scroll" data-keywords="pricing, tiers, free, premium, pro, cost, monthly, cloud, template, library, storage, workspaces">
-        <div class="section-header">
-          <span class="section-tag">Licensing Tiers</span>
-          <h2 class="section-title">Flexible Pricing Plan</h2>
-          <p class="section-subtitle">
-            Scale your agent operations with transparent, affordable plans. All options include the open-source CLI engine.
-          </p>
+
+      <section id="governance" aria-labelledby="governance-title">
+        <div class="sectionHead">
+          <div class="label">Governance layer</div>
+          <h2 id="governance-title">Autonomy needs a boundary before it needs more agency.</h2>
+          <p>AgentArche positions governance as the operating layer around the loop, not a compliance afterthought. The loop can act, but the control plane decides where it can act, when it must stop, and what it must prove.</p>
         </div>
-        
-        <div class="pricing-grid">
-          <!-- Tier 1: Free -->
-          <div class="drift-card drift-card--glass pricing-card">
-            <h3 class="pricing-tier-name">Free</h3>
-            <div class="pricing-price">$0</div>
-            <div class="pricing-sub">Forever</div>
-            
-            <ul class="pricing-features">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Basic MD prompt builder
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Git workflow sync
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                GitHub open-source stack
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Local-only configuration
-              </li>
-            </ul>
-            
-            <a href="#early-access" class="drift-btn drift-btn--secondary" style="width: 100%;">Get Started</a>
-          </div>
-          
-          <!-- Tier 2: Premium (Highlighted) -->
-          <div class="drift-card drift-card--glass pricing-card pricing-card--highlighted">
-            <span class="pricing-badge">Sweet Spot</span>
-            <h3 class="pricing-tier-name" style="color: var(--accent-primary);">Premium</h3>
-            <div class="pricing-price">$9.99</div>
-            <div class="pricing-sub" style="color: var(--accent-primary);">Per Month</div>
-            
-            <ul class="pricing-features">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Multi-AI model routing
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Cloud storage & sync
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Saved template library
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Structured JSON outputs
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Advanced skills support
-              </li>
-            </ul>
-            
-            <a href="#early-access" class="drift-btn drift-btn--primary" style="width: 100%;">Upgrade to Premium</a>
-          </div>
-          
-          <!-- Tier 3: Pro -->
-          <div class="drift-card drift-card--glass pricing-card">
-            <h3 class="pricing-tier-name">Pro</h3>
-            <div class="pricing-price">$19.99</div>
-            <div class="pricing-sub">Per Month</div>
-            
-            <ul class="pricing-features">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Preloaded orchestration runtimes
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Priority support channels
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Custom skills authoring
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Team-wide workspaces
-              </li>
-            </ul>
-            
-            <a href="#early-access" class="drift-btn drift-btn--secondary" style="width: 100%;">Go Pro</a>
-          </div>
-        </div>
-        
-        <div class="pricing-footer-note">
-          &larr; all tiers include the open-source CLI &middot; consulting upgrades available &rarr;
+        <div class="grid3">
+          <article class="card"><div class="num">01 :: PERMISSIONS</div><h3>Tool access is policy</h3><p>Allowed tools, blocked tools, read/write scopes, credential identity, rate limits, and irreversible action gates.</p></article>
+          <article class="card"><div class="num">02 :: VERIFICATION</div><h3>Checks stack, not guess</h3><p>Tests and schemas first, heuristic checks second, independent AI review third, human approval at the edge.</p></article>
+          <article class="card"><div class="num">03 :: MEMORY</div><h3>State lives outside the model</h3><p>The loop remembers prior runs, successful patterns, known failures, policy decisions, and open exceptions.</p></article>
+          <article class="card"><div class="num">04 :: AUDIT</div><h3>Every run leaves evidence</h3><p>Trigger, inputs, tools, outputs, changed assets, verifier result, approvals, and escalation history.</p></article>
+          <article class="card"><div class="num">05 :: ROUTING</div><h3>Models are replaceable</h3><p>The loop contract survives model churn by abstracting model choice behind route, fallback, and evaluation rules.</p></article>
+          <article class="card"><div class="num">06 :: ESCALATION</div><h3>Human gates stay explicit</h3><p>Warn and quarantine inside the loop. Hard-fail at production deploys, external sends, payments, access changes, and merges.</p></article>
         </div>
       </section>
-      
-      <!-- CONSULTING SECTION (Step 8) -->
-      <section id="consulting" class="reveal-on-scroll" data-keywords="consulting, enterprise, training, SLA, deployment, on-premise, talk to us, support">
-        <div class="drift-card drift-card--glass consulting-banner">
-          <div>
-            <span class="section-tag">Turn Pipelines Into Profit</span>
-            <p class="consulting-text">
-              Looking for private deployments, custom tool integrations, team training, or SLA guarantees? We shape AI to work for you. You use the free tier. We handle the hard parts. You keep the keys.
-            </p>
-            
-            <ul class="consulting-bullets">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Custom agent workflows
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                On-premise deployment
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Engineering training
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Enterprise SLAs
-              </li>
-            </ul>
-          </div>
-          
-          <div class="consulting-form-card" id="contact-card">
-            <div class="drift-hud-readout" style="margin-bottom: 1.5rem;">[Secure Portal]</div>
-            <form id="contactForm" onsubmit="handleContactSubmit(event)">
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="form-name">Name</label>
-                  <input type="text" id="form-name" required class="drift-input" placeholder="Jules Vern">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="form-email">Email</label>
-                  <input type="email" id="form-email" required class="drift-input" placeholder="jules@domain.com">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="form-tier">Plan of Interest</label>
-                <select id="form-tier" class="drift-input setting-select" style="background-color: var(--surface);">
-                  <option value="Enterprise AI Consulting">Enterprise AI Consulting</option>
-                  <option value="Pro Workspace Plan">Pro Workspace Plan</option>
-                  <option value="Premium Upgrade">Premium Upgrade</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="form-details">Project Scope</label>
-                <textarea id="form-details" required class="drift-input" placeholder="Tell us about the agent workflows you want to build..."></textarea>
-              </div>
-              <button type="submit" class="drift-btn drift-btn--primary" style="width: 100%;">
-                Submit Inquiry
-              </button>
-            </form>
-          </div>
+
+      <section id="use-cases" aria-labelledby="use-title">
+        <div class="sectionHead">
+          <div class="label">Use cases</div>
+          <h2 id="use-title">Start with repeatable work that has a finish line.</h2>
+          <p>The strongest loops have a clear trigger, low blast radius, measurable ROI, and a verification path.</p>
+        </div>
+        <div class="grid3">
+          <article class="card"><div class="num">ENGINEERING</div><h3>PR repair loop</h3><p>Triggered by failed CI. Creates an isolated patch, runs tests, requests approval before merge.</p></article>
+          <article class="card"><div class="num">PRODUCT</div><h3>Voice-of-customer loop</h3><p>Triggered by new feedback. Clusters themes, cites evidence, drafts backlog candidates.</p></article>
+          <article class="card"><div class="num">GOVERNANCE</div><h3>Agent evidence loop</h3><p>Triggered by any autonomous run. Produces the run ledger and evidence pack.</p></article>
+          <article class="card"><div class="num">SUPPORT</div><h3>Escalation loop</h3><p>Triggered by SLA risk. Summarizes account history, drafts the handoff, routes to owner.</p></article>
+          <article class="card"><div class="num">FINANCE OPS</div><h3>Invoice exception loop</h3><p>Triggered by PO mismatch. Explains discrepancy, collects evidence, routes approval.</p></article>
+          <article class="card"><div class="num">PERSONAL</div><h3>Command center loop</h3><p>Triggered each morning. Reviews calendar, email, tasks, notes, and builds the day plan.</p></article>
         </div>
       </section>
-      
+
+      <section id="pricing" aria-labelledby="pricing-title">
+        <div class="sectionHead">
+          <div class="label">Packaging</div>
+          <h2 id="pricing-title">Price the governance layer, not just usage.</h2>
+          <p>The tiers should communicate maturity: from local builder loops to enterprise loop governance.</p>
+        </div>
+        <div class="grid4">
+          <article class="card price"><div class="tier">Builder</div><h3>Local loops</h3><ul><li>Arche Studio</li><li>Local execution</li><li>Loop templates</li><li>Single-operator memory</li></ul><a class="button button--glass" href="#">Start local</a></article>
+          <article class="card price"><div class="tier">Team</div><h3>Shared workflows</h3><ul><li>Team registry</li><li>Shared connectors</li><li>Worker dispatch</li><li>Review queues</li></ul><a class="button button--glass" href="#">Build with team</a></article>
+          <article class="card price"><div class="tier">Business</div><h3>Governed runtime</h3><ul><li>Approval gates</li><li>Run ledger</li><li>Verifier stack</li><li>Scoped permissions</li></ul><a class="button button--primary" href="#">Run governed</a></article>
+          <article class="card price"><div class="tier">Enterprise</div><h3>Control plane</h3><ul><li>SSO and policies</li><li>Private deployment</li><li>Model routing</li><li>Audit evidence packs</li></ul><a class="button button--glass" href="#">Request control</a></article>
+        </div>
+      </section>
+
+      <section aria-labelledby="cta-title">
+        <div class="band">
+          <h2 id="cta-title">Turn prompts into pipelines. Turn pipelines into <em>governed loops.</em></h2>
+          <p>Keep the hook. Elevate the category. Make autonomous work safe enough to run.</p>
+          <form class="earlyAccess" id="earlyAccessForm" action="/api/forms/lead" method="post">
+            <label class="skip" for="earlyAccessEmail">Work email</label>
+            <input id="earlyAccessEmail" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
+            <button class="button button--primary" type="submit">Request early access</button>
+          </form>
+          <div class="formStatus" id="earlyAccessStatus" role="status" aria-live="polite"></div>
+        </div>
+      </section>
     </main>
-    
-    <!-- FOOTER CONTAINER (Step 8) -->
+
     <footer>
-      <div class="footer-grid">
-        <div>
-          <a href="#" class="nav-logo footer-brand">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M3.5 22 L3.5 10 C3.5 3 20.5 3 20.5 10 L20.5 22" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-              <path d="M3.5 14 L20.5 14" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="12" cy="3.5" r="1.5" fill="#22d3ee"/>
-              <circle cx="12" cy="14" r="3" fill="none" stroke="#22d3ee" stroke-width="0.75" opacity="0.3"/>
-              <circle cx="12" cy="14" r="1.5" fill="#22d3ee"/>
-            </svg>
-          </a>
-          <p class="footer-desc">
-            The open-source orchestration layer for LLM workflows. Build agents from the ground up. Run where data lives.
-          </p>
-        </div>
-        <div>
-          <h4 class="footer-heading">Platform</h4>
-          <ul class="footer-links">
-            <li><a href="#hero">Product</a></li>
-            <li><a href="#why">Why Arche</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Community</h4>
-          <ul class="footer-links">
-            <li><a href="https://github.com/arche-org/arche" target="_blank">GitHub Repository</a></li>
-            <li><a href="#consulting">Consulting Services</a></li>
-            <li><a href="mailto:consulting@agentarche.com">consulting@agentarche.com</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <div class="footer-copyright">
-          &copy; 2026 Arche. Open-source under MIT License.
-        </div>
-        <div class="footer-social">
-          <a href="https://github.com/arche-org/arche" target="_blank" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
-          </a>
-        </div>
+      <div class="footerInner">
+        <div><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMzIgNDgiIHdpZHRoPSIyMzIiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJmbCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzMzNDA1ZiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzFjMjQzOCI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZtIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWYyNzQwIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTIxODI5Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZmQiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNjFkMzAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYjBmMWIiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjb3JlIiB4MT0iMCIgeTE9IjEiIHgyPSIwIiB5Mj0iMCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzRlMGYwIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjQ1IiBzdG9wLWNvbG9yPSIjYTVmM2ZjIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjYyIiBzdG9wLWNvbG9yPSIjZmRlNjhhIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmI5MjNjIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMiAwKSI+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNCAyNC41KSBzY2FsZSgxIDAuODYpIHRyYW5zbGF0ZSgtMjQgLTI0KSI+CiAgICA8cGF0aCBkPSJNOSA5IEgzOSBWMzkgSDExIFYxMyBIMzUgVjM1IEgxNSBWMTcgSDMxIFYzMSBIMTkgVjIxIEgyNyBWMjUgSDIzLjUiIHN0cm9rZT0iIzM0ZTBmMCIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC45MiI+PC9wYXRoPgogIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0IDI0KSBzY2FsZSgwLjcpIHRyYW5zbGF0ZSgtMjQgLTI1KSI+CiAgICA8cG9seWdvbiBwb2ludHM9IjIwLDQgMjgsNCAzMCw3IDE4LDciIGZpbGw9InVybCgjZmwpIj48L3BvbHlnb24+CiAgICA8cG9seWdvbiBwb2ludHM9IjE4LDcgMjQsNyAyNCw0NiAxNCwzMyAxNCwxMiIgZmlsbD0idXJsKCNmbSkiIHN0cm9rZT0icmdiYSgxMjQsMTQwLDI0OCwwLjQ1KSIgc3Ryb2tlLXdpZHRoPSIwLjU3MSI+PC9wb2x5Z29uPgogICAgPHBvbHlnb24gcG9pbnRzPSIyNCw3IDMwLDcgMzQsMTIgMzQsMzMgMjQsNDYiIGZpbGw9InVybCgjZmQpIiBzdHJva2U9InJnYmEoMTI0LDE0MCwyNDgsMC40NSkiIHN0cm9rZS13aWR0aD0iMC41NzEiPjwvcG9seWdvbj4KICAgIDxsaW5lIHgxPSIyNCIgeTE9IjciIHgyPSIyNCIgeTI9IjQ2IiBzdHJva2U9InJnYmEoMTY1LDI0MywyNTIsMC42KSIgc3Ryb2tlLXdpZHRoPSIwLjcxNCIgb3BhY2l0eT0iMC41Ij48L2xpbmU+CiAgICA8cmVjdCB4PSIyMS40IiB5PSIxMyIgd2lkdGg9IjUuMiIgaGVpZ2h0PSIyNiIgcng9IjIuNiIgZmlsbD0iIzBhMGUxOCI+PC9yZWN0PgogICAgPHJlY3QgeD0iMjIuNCIgeT0iMTEiIHdpZHRoPSIzLjIiIGhlaWdodD0iMjgiIHJ4PSIxLjYiIGZpbGw9InVybCgjY29yZSkiPjwvcmVjdD4KICA8L2c+CiAgPC9nPgogIDx0ZXh0IHg9IjU2IiB5PSIyNyIgZm9udC1mYW1pbHk9IiYjMzk7SW50ZXIgVGlnaHQmIzM5OyxJbnRlcixzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMS4xIiBmaWxsPSIjZjNmNGZiIj5BUkNIRTwvdGV4dD4KICA8dGV4dCB4PSI1NyIgeT0iMzkiIGZvbnQtZmFtaWx5PSImIzM5O0pldEJyYWlucyBNb25vJiMzOTssbW9ub3NwYWNlIiBmb250LXNpemU9IjYuNSIgZm9udC13ZWlnaHQ9IjUwMCIgbGV0dGVyLXNwYWNpbmc9IjIuNCIgZmlsbD0iIzcxNzQ4YyI+VFVSTiBQSVBFTElORVMgSU5UTyBQUk9GSVQ8L3RleHQ+Cjwvc3ZnPg==" alt="Arche" /><div class="footTag">TURN PIPELINES INTO PROFIT</div></div>
+        <div class="footCol"><h4>Product</h4><a href="#contracts">Loop contracts</a><a href="#platform">Runtime</a><a href="#governance">Guard</a></div>
+        <div class="footCol"><h4>Use cases</h4><a href="#use-cases">Engineering</a><a href="#use-cases">Product</a><a href="#use-cases">Audit</a></div>
+        <div class="footCol"><h4>Operator</h4><a href="#shift">Positioning</a><a href="#pricing">Packaging</a><a href="/docs/">Docs</a></div>
       </div>
     </footer>
-    
   </div>
 
   <script>
-    // ═══════════════════════════════════════════════════════════════
-    // CORE APPLICATION INTERACTIONS (Step 9)
-    // ═══════════════════════════════════════════════════════════════
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Scroll to Top visibility
-      const scrollTopBtn = document.getElementById('scrollTopBtn');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-          scrollTopBtn.classList.add('visible');
-        } else {
-          scrollTopBtn.classList.remove('visible');
-        }
-      });
-      scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      // Mobile menu toggle
-      const navToggle = document.getElementById('navToggle');
-      const navMenu = document.getElementById('navMenu');
-      if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-          navMenu.classList.toggle('open');
-          const isOpen = navMenu.classList.contains('open');
-          navToggle.setAttribute('aria-expanded', isOpen);
-          navToggle.innerHTML = isOpen ? `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          ` : `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          `;
-        });
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        btn.textContent = 'THEME: ' + theme.toUpperCase();
+        try { localStorage.setItem('arche-theme', theme); } catch (e) {}
       }
-
-      // Scroll reveal via IntersectionObserver
-      const observerOptions = {
-        threshold: 0.05,
-        rootMargin: '0px 0px -50px 0px'
-      };
-      
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-        revealObserver.observe(el);
-      });
-
-      // Real-time search filter
-      const searchInput = document.getElementById('kbSearchInput');
-      const sections = document.querySelectorAll('main > section');
-      
-      if (searchInput) {
-        searchInput.addEventListener('input', () => {
-          const query = searchInput.value.toLowerCase().trim();
-          
-          sections.forEach(section => {
-            if (!query) {
-              section.classList.remove('section-hidden');
-              return;
-            }
-            
-            const keywords = section.getAttribute('data-keywords') || '';
-            const textContent = section.textContent.toLowerCase();
-            const matchesKeyword = keywords.toLowerCase().includes(query);
-            const matchesText = textContent.includes(query);
-            
-            if (matchesKeyword || matchesText) {
-              section.classList.remove('section-hidden');
-            } else {
-              section.classList.add('section-hidden');
-            }
-          });
-        });
-      }
-
-      // Early Access Registration
-      const earlyAccessForm = document.getElementById('earlyAccessForm');
-      if (earlyAccessForm) {
-        earlyAccessForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const emailInput = document.getElementById('heroEmail');
-          const submitBtn = earlyAccessForm.querySelector('button[type="submit"]');
-          
-          if (emailInput && submitBtn) {
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Registering...';
-            
-            try {
-              const res = await fetch('/api/forms/lead', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  email: emailInput.value,
-                  source: 'hero'
-                })
-              });
-              const data = await res.json();
-              
-              if (data.success) {
-                submitBtn.textContent = '✓ Access Granted';
-                submitBtn.style.background = 'var(--accent-secondary)';
-                submitBtn.style.borderColor = 'var(--accent-secondary)';
-                emailInput.value = '';
-                emailInput.placeholder = 'Transmission logged successfully.';
-                emailInput.disabled = true;
-              } else {
-                submitBtn.textContent = '✗ Error — try again';
-                submitBtn.style.background = 'var(--accent-guard)';
-                submitBtn.style.borderColor = 'var(--accent-guard)';
-              }
-            } catch {
-              submitBtn.textContent = '✗ Connection failed';
-              submitBtn.style.background = 'var(--accent-guard)';
-              submitBtn.style.borderColor = 'var(--accent-guard)';
-            }
-            
-            setTimeout(() => {
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalText;
-              submitBtn.style.background = '';
-              submitBtn.style.borderColor = '';
-              emailInput.disabled = false;
-              emailInput.placeholder = 'your@email.com';
-            }, 4000);
-          }
-        });
-      }
-    });
-
-    // ── Theme Toggle ──
-    (function initTheme() {
-      const stored = localStorage.getItem('arche-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = stored || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme === 'dark' ? '' : 'light');
-      const icon = document.getElementById('themeIcon');
-      if (theme === 'light' && icon) {
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
-      }
-      document.getElementById('themeToggle')?.addEventListener('click', () => {
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const newTheme = isLight ? '' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('arche-theme', newTheme || 'dark');
-        const icon = document.getElementById('themeIcon');
-        if (icon) {
-          icon.innerHTML = isLight
-            ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
-            : '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
-        }
+      var saved = null;
+      try { saved = localStorage.getItem('arche-theme'); } catch (e) {}
+      if (saved === 'light' || saved === 'dark') setTheme(saved);
+      btn.addEventListener('click', function() {
+        var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        setTheme(next);
       });
     })();
 
-    // Contact Form Submission
-    async function handleContactSubmit(event) {
-      event.preventDefault();
-      
-      const name = document.getElementById('form-name').value;
-      const email = document.getElementById('form-email').value;
-      const tier = document.getElementById('form-tier').value;
-      const details = document.getElementById('form-details').value;
+    (function() {
+      var form = document.getElementById('earlyAccessForm');
+      var status = document.getElementById('earlyAccessStatus');
+      if (!form || !status) return;
 
-      const card = document.getElementById('contact-card');
-      const btn = card?.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+      var resetTimer = null;
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var input = form.querySelector('input[name="email"]');
+        var button = form.querySelector('button[type="submit"]');
+        var email = input.value.trim();
+        if (!email) return;
 
-      try {
-        const res = await fetch('/api/forms/lead', {
+        clearTimeout(resetTimer);
+        status.className = 'formStatus';
+        status.textContent = 'Submitting...';
+        button.disabled = true;
+
+        fetch('/api/forms/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            name,
-            source: 'contact',
-            message: `Tier: ${tier}\n\nDetails:\n${details}`
+          body: JSON.stringify({ email: email, source: 'hero' })
+        })
+          .then(function(response) {
+            if (!response.ok) throw new Error('Request failed. Try again.');
+            return response.json().catch(function() { return {}; });
           })
-        });
-        const data = await res.json();
-
-        if (card) {
-          card.style.opacity = '0';
-          setTimeout(() => {
-            card.innerHTML = `
-              <div class="drift-hud-readout" style="margin-bottom: 1rem; color: var(--accent-secondary);">[Transmission Received]</div>
-              <h3 class="pricing-tier-name" style="color: var(--accent-secondary); margin-bottom: 1rem;">Inquiry Logged</h3>
-              <p style="color: var(--ink-secondary); font-size: 0.9rem; line-height: 1.6;">
-                ${data.success 
-                  ? `Thanks ${name}! We've received your inquiry and will respond within 24 hours.`
-                  : "Something went wrong. Please email us directly at consulting@agentarche.com."}
-              </p>`;
-            card.style.opacity = '1';
-          }, 300);
-        }
-      } catch {
-        if (card) {
-          card.style.opacity = '0';
-          setTimeout(() => {
-            card.innerHTML = `
-              <div class="drift-hud-readout" style="margin-bottom: 1rem; color: var(--accent-guard);">[Connection Error]</div>
-              <h3 class="pricing-tier-name" style="color: var(--accent-guard); margin-bottom: 1rem;">Not Sent</h3>
-              <p style="color: var(--ink-secondary); font-size: 0.9rem; line-height: 1.6;">
-                Could not reach our servers. Please email consulting@agentarche.com directly.</p>`;
-            card.style.opacity = '1';
-          }, 300);
-        }
-      }
-    }
+          .then(function() {
+            form.reset();
+            status.className = 'formStatus is-success';
+            status.textContent = "✓ You're on the list";
+            resetTimer = setTimeout(function() {
+              status.className = 'formStatus';
+              status.textContent = '';
+            }, 4000);
+          })
+          .catch(function(error) {
+            status.className = 'formStatus is-error';
+            status.textContent = error && error.message ? error.message : 'Something failed. Try again.';
+          })
+          .finally(function() {
+            button.disabled = false;
+          });
+      });
+    })();
   </script>
 </body>
-</html>
 <!--
 ## Graph Seed: Entity Relationships
-arche -> is_redesigned_with -> drift_design_system
-arche -> provides -> ai_agent_orchestration
-marketing_site -> represents -> arche
+arche -> markets -> governed_autonomous_loops
+arche -> redesigned_with -> drift_design_system_v2_2
+governed_autonomous_loops -> enabled_by -> loop_contracts
+governed_autonomous_loops -> measured_by -> governance_metrics
 
 ## Retrieval Keywords
-arche, drift, marketing, pipelines, workflows, orchestration, open-source, pricing, consulting
+arche, agentarche, governed loops, loop contracts, governance metrics, AI orchestration, control plane, drift design system
 
 ## Boundary Notes
-This is a static marketing website mockup and does not contain active backend orchestration software.
+This is a static marketing website landing page. It does not contain active backend orchestration software.
 -->
+</html>
